@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Mis Quince Años · Mia Eluney</title>
+<meta name="description" content="Invitación a los Quince Años de Mia Princesa Eluney Martinez · 30 de Octubre de 2026 · Olmos Recepciones">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Mis Quince Años · Mia Eluney">
+<meta property="og:description" content="Te invito a celebrar mis Quince Años · 30 de Octubre de 2026">
+<meta property="og:type" content="website">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E👑%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Italianno&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ CURSOR SPARKLES CANVAS ============ -->
+<canvas id="petals-canvas"></canvas>
+
+<!-- ============ SOBRE / ENVELOPE INTRO ============ -->
+<div id="envelope-screen" aria-label="Pantalla de apertura de invitación">
+  <div class="envelope-wrap">
+    <p class="envelope-hint">Tocá el sello para abrir tu invitación</p>
+    <div class="envelope" id="envelope">
+      <div class="envelope-back"></div>
+      <div class="envelope-letter">
+        <span class="letter-monogram">M</span>
+        <span class="letter-line">Mia</span>
+        <span class="letter-line small">cumple Quince</span>
+      </div>
+      <div class="envelope-flap"></div>
+      <button class="wax-seal" id="wax-seal" aria-label="Abrir invitación">
+        <span>M</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ NAV ============ -->
+<nav id="site-nav" class="site-nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">M·E</a>
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Abrir navegación" aria-controls="nav-links" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
+      <a href="#detalles" data-nav>Detalles</a>
+      <a href="#cronograma" data-nav>Cronograma</a>
+      <a href="#vestimenta" data-nav>Vestimenta</a>
+      <a href="#galeria" data-nav>Galería</a>
+      <a href="#regalos" data-nav>Regalos</a>
+      <a href="#confirmar" data-nav class="nav-cta">Confirmar</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ MUSIC TOGGLE ============ -->
+<button id="music-toggle" class="music-toggle" aria-label="Reproducir música">
+  <svg viewBox="0 0 24 24" class="icon-note"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="1.4" fill="none"/><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
+</button>
+<audio id="bg-music" loop preload="none">
+  <source src="assets/music/song.mp3" type="audio/mpeg">
+</audio>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section id="hero" class="hero">
+    <div class="hero-frame" data-parallax>
+      <svg class="corner corner-tl" viewBox="0 0 120 120"><use href="#ornament-corner"/></svg>
+      <svg class="corner corner-tr" viewBox="0 0 120 120"><use href="#ornament-corner"/></svg>
+      <svg class="corner corner-bl" viewBox="0 0 120 120"><use href="#ornament-corner"/></svg>
+      <svg class="corner corner-br" viewBox="0 0 120 120"><use href="#ornament-corner"/></svg>
+
+      <p class="hero-eyebrow reveal">La familia Martínez tiene el honor de invitarlo/a a celebrar</p>
+
+      <svg class="crown-icon reveal" viewBox="0 0 64 40" aria-hidden="true">
+        <path d="M4 36 L2 12 L16 22 L32 4 L48 22 L62 12 L60 36 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <circle cx="2" cy="10" r="3" fill="currentColor"/>
+        <circle cx="32" cy="3" r="3.4" fill="currentColor"/>
+        <circle cx="62" cy="10" r="3" fill="currentColor"/>
+      </svg>
+
+      <h1 class="hero-title reveal">
+        <span class="hero-title-sub">Mis Quince Años</span>
+        <span class="hero-name">Mia</span>
+        <span class="hero-fullname">Princesa Eluney Martinez</span>
+      </h1>
+
+      <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
+
+      <p class="hero-date reveal">30 de Octubre · 2026</p>
+      <p class="hero-place reveal">Olmos Recepciones — Villa San Andrés, Buenos Aires</p>
+
+      <a href="#detalles" class="btn btn-ghost reveal scroll-cta">Descubrir invitación ↓</a>
+    </div>
+  </section>
+
+  <!-- ============ QUOTE ============ -->
+  <section class="quote-section">
+    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
+    <p class="quote-text reveal">“Hoy la niña se despide y nace una nueva historia:<br> la de una mujer con sueños de princesa y corazón de reina.”</p>
+    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
+  </section>
+
+  <!-- ============ COUNTDOWN ============ -->
+  <section id="countdown-section" class="countdown-section">
+    <h2 class="section-title reveal">Faltan solo…</h2>
+    <div class="countdown reveal" id="countdown">
+      <div class="countdown-box"><span class="cd-num" id="cd-days">00</span><span class="cd-label">Días</span></div>
+      <div class="countdown-box"><span class="cd-num" id="cd-hours">00</span><span class="cd-label">Horas</span></div>
+      <div class="countdown-box"><span class="cd-num" id="cd-mins">00</span><span class="cd-label">Min</span></div>
+      <div class="countdown-box"><span class="cd-num" id="cd-secs">00</span><span class="cd-label">Seg</span></div>
+    </div>
+    <p class="countdown-caption reveal">para brindar juntos por este sueño ✨</p>
+  </section>
+
+  <!-- ============ DETALLES ============ -->
+  <section id="detalles" class="section detalles">
+    <h2 class="section-title reveal">Detalles del Gran Evento</h2>
+    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
+
+    <div class="cards-grid">
+      <article class="royal-card reveal">
+        <div class="royal-card-icon">📅</div>
+        <h3>Fecha</h3>
+        <p>Viernes 30 de Octubre de 2026</p>
+      </article>
+      <article class="royal-card reveal">
+        <div class="royal-card-icon">🕗</div>
+        <h3>Hora</h3>
+        <p>20:00 hs <span class="muted">(horario a confirmar)</span></p>
+      </article>
+      <article class="royal-card reveal">
+        <div class="royal-card-icon">🏰</div>
+        <h3>Salón</h3>
+        <p>Olmos Recepciones<br>Av. Pres. Juan Domingo Perón 3279<br>Villa San Andrés, Buenos Aires</p>
+      </article>
+    </div>
+
+    <div class="map-wrap reveal">
+      <iframe
+        title="Ubicación Olmos Recepciones"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://maps.google.com/maps?q=Av.%20Pres.%20Juan%20Domingo%20Per%C3%B3n%203279%2C%20B1650%20Villa%20San%20Andr%C3%A9s%2C%20Provincia%20de%20Buenos%20Aires%2C%20Olmos%20Recepciones&output=embed">
+      </iframe>
+      <a class="btn btn-gold" target="_blank" rel="noopener"
+         href="https://www.google.com/maps/dir/?api=1&destination=Av.+Pres.+Juan+Domingo+Per%C3%B3n+3279%2C+B1650+Villa+San+Andr%C3%A9s%2C+Provincia+de+Buenos+Aires">
+        Cómo llegar 📍
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ CRONOGRAMA ============ -->
+  <section id="cronograma" class="section cronograma">
+    <h2 class="section-title reveal">Cronograma de la Noche</h2>
+    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
+
+    <ol class="timeline">
+      <li class="timeline-item reveal"><span class="tl-time">20:00</span><span class="tl-dot"></span><div class="tl-content"><h3>Recepción de invitados</h3><p>Bienvenida con brindis de honor</p></div></li>
+      <li class="timeline-item reveal"><span class="tl-time">20:30</span><span class="tl-dot"></span><div class="tl-content"><h3>Entrada de la quinceañera</h3><p>Ingreso oficial de Mia</p></div></li>
+      <li class="timeline-item reveal"><span class="tl-time">21:00</span><span class="tl-dot"></span><div class="tl-content"><h3>Vals</h3><p>Baile tradicional de los 15 años</p></div></li>
+      <li class="timeline-item reveal"><span class="tl-time">21:30</span><span class="tl-dot"></span><div class="tl-content"><h3>Cena de gala</h3><p>Menú especial de la celebración</p></div></li>
+      <li class="timeline-item reveal"><span class="tl-time">23:00</span><span class="tl-dot"></span><div class="tl-content"><h3>Cotillón &amp; Fiesta</h3><p>¡A bailar toda la noche!</p></div></li>
+      <li class="timeline-item reveal"><span class="tl-time">00:00</span><span class="tl-dot"></span><div class="tl-content"><h3>Brindis de medianoche</h3><p>Momento fotográfico especial</p></div></li>
+    </ol>
+  </section>
+
+  <!-- ============ VESTIMENTA ============ -->
+  <section id="vestimenta" class="section vestimenta">
+    <h2 class="section-title reveal">Código de Vestimenta</h2>
+    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
+    <p class="reveal centered-text">Elegante formal — se sugiere honrar la ocasión con etiqueta de gala.</p>
+    <div class="palette-row reveal">
+      <div class="swatch" style="--sw:#D8B7B4"><span>Rosa Antiguo</span></div>
+      <div class="swatch" style="--sw:#B99A61"><span>Dorado</span></div>
+      <div class="swatch" style="--sw:#FFFDFB"><span>Blanco</span></div>
+    </div>
+    <p class="reveal centered-text small-note">✨ Por favor, evitar el color <strong>rosa viejo</strong>, reservado para la quinceañera.</p>
+  </section>
+
+  <!-- ============ GALERÍA ============ -->
+  <section id="galeria" class="section galeria">
+    <h2 class="section-title reveal">Galería</h2>
+    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
+    <p class="reveal centered-text small-note">Reemplazá estos marcos por las fotos favoritas de Mia en <code>assets/gallery/</code>.</p>
+    <div class="gallery-grid">
+      <button class="gallery-frame reveal" data-index="0"><img src="assets/gallery/foto1.jpg" alt="Foto de Mia 1" onerror="this.closest('.gallery-frame').classList.add('placeholder')"></button>
+      <button class="gallery-frame reveal" data-index="1"><img src="assets/gallery/foto2.jpg" alt="Foto de Mia 2" onerror="this.closest('.gallery-frame').classList.add('placeholder')"></button>
+      <button class="gallery-frame reveal" data-index="2"><img src="assets/gallery/foto3.jpg" alt="Foto de Mia 3" onerror="this.closest('.gallery-frame').classList.add('placeholder')"></button>
+      <button class="gallery-frame reveal" data-index="3"><img src="assets/gallery/foto4.jpg" alt="Foto de Mia 4" onerror="this.closest('.gallery-frame').classList.add('placeholder')"></button>
+      <button class="gallery-frame reveal" data-index="4"><img src="assets/gallery/foto5.jpg" alt="Foto de Mia 5" onerror="this.closest('.gallery-frame').classList.add('placeholder')"></button>
+      <button class="gallery-frame reveal" data-index="5"><img src="assets/gallery/foto6.jpg" alt="Foto de Mia 6" onerror="this.closest('.gallery-frame').classList.add('placeholder')"></button>
+    </div>
+  </section>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Cerrar">✕</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <!-- ============ REGALOS ============ -->
+  <section id="regalos" class="section regalos">
+    <h2 class="section-title reveal">Mesa de Regalos</h2>
+    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
+    <div class="royal-card reveal centered-card">
+      <div class="royal-card-icon">🎁</div>
+      <p>Tu presencia es el regalo más importante.<br>Si además querés hacerle un obsequio a Mia, se agradece una <strong>lluvia de sobres</strong>.</p>
+      <div class="alias-box">
+        <span id="alias-text">alias.mia.xv15</span>
+        <button class="btn btn-outline-gold" id="copy-alias">Copiar alias</button>
+      </div>
+      <p class="copied-msg" id="copied-msg">¡Alias copiado! 💌</p>
+    </div>
+  </section>
+
+  <!-- ============ CONFIRMAR (RSVP) ============ -->
+  <section id="confirmar" class="section confirmar">
+    <h2 class="section-title reveal">Confirmá tu Asistencia</h2>
+    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
+    <p class="reveal centered-text">Por favor confirmá antes del <strong>15 de Octubre de 2026</strong></p>
+
+    <form id="rsvp-form" class="rsvp-form reveal">
+      <label>
+        Nombre y Apellido
+        <input type="text" id="rsvp-name" name="name" required placeholder="Tu nombre completo">
+      </label>
+      <label>
+        ¿Asistirás?
+        <select id="rsvp-attend" name="attend">
+          <option value="Sí, con mucho gusto">Sí, con mucho gusto ✨</option>
+          <option value="No podré asistir">No podré asistir 💔</option>
+        </select>
+      </label>
+      <label>
+        Cantidad de invitados (incluyéndote)
+        <input type="number" id="rsvp-guests" name="guests" min="1" max="10" value="1">
+      </label>
+      <label>
+        Mensaje para Mia (opcional)
+        <textarea id="rsvp-message" name="message" rows="3" placeholder="Dejale unas palabras a la quinceañera"></textarea>
+      </label>
+      <button type="submit" class="btn btn-gold rsvp-submit">Enviar confirmación por WhatsApp 💌</button>
+    </form>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <svg class="crown-icon small reveal" viewBox="0 0 64 40" aria-hidden="true">
+      <path d="M4 36 L2 12 L16 22 L32 4 L48 22 L62 12 L60 36 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    </svg>
+    <p class="footer-name">Mia Princesa Eluney Martinez</p>
+    <p class="footer-hashtag">#Mis15AñosMia</p>
+    <p class="footer-copy">Con todo mi cariño, hecho para vos 👑</p>
+  </footer>
+
+</main>
+
+<!-- Confetti canvas for RSVP success -->
+<canvas id="confetti-canvas"></canvas>
+
+<!-- Reusable ornament defs -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <g id="ornament-corner">
+      <path d="M4 116 C4 60 4 4 60 4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M4 100 C4 60 30 30 60 20" fill="none" stroke="currentColor" stroke-width="1"/>
+      <circle cx="4" cy="116" r="3" fill="currentColor"/>
+      <circle cx="60" cy="4" r="3" fill="currentColor"/>
+      <path d="M20 108 q8 -8 0 -16 q-8 8 0 16 z" fill="currentColor" opacity="0.7"/>
+    </g>
+  </defs>
+</svg>
+
+<script src="js/script.js"></script>
+</body>
+</html>
