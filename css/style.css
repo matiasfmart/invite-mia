@@ -352,6 +352,43 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--co
 }
 
 /* ==========================================================================
+   SOCIETY GAZETTE
+   ========================================================================== */
+.society-gazette { position: relative; z-index: 3; max-width: 980px; margin: 0 auto; padding: 28px 24px 54px; }
+.gazette-sheet {
+  background-color: #fffdf8;
+  background-image: repeating-linear-gradient(0deg, rgba(94,82,62,0.025) 0 1px, transparent 1px 6px);
+  border: 1px solid var(--color-text);
+  box-shadow: inset 0 0 0 7px #fffdf8, inset 0 0 0 9px rgba(79,76,70,0.7), 0 12px 28px rgba(93,83,80,0.09);
+  padding: 25px 38px 30px;
+  color: #363531;
+}
+.gazette-header { text-align: center; }
+.gazette-portrait { width: 78px; height: 78px; margin: 0 auto 4px; animation: portrait-arrive 1.3s cubic-bezier(.2,.8,.2,1) both; }
+.gazette-portrait img { display: block; width: 100%; height: 100%; object-fit: contain; }
+@keyframes portrait-arrive { from { opacity: 0; transform: scale(0.7) rotate(-8deg); } to { opacity: 1; transform: scale(1) rotate(0); } }
+.gazette-name { margin: 0; font-family: var(--font-script); font-size: 2.4rem; line-height: 1; color: #272622; }
+.gazette-header h2 { margin: 2px 0 0; font-family: var(--font-display); font-size: 1.45rem; font-weight: 500; color: #272622; letter-spacing: 0.12em; text-transform: uppercase; }
+.gazette-edition { margin: 9px 0 0; font-family: var(--font-display); font-size: 0.84rem; color: #4f4c46; letter-spacing: 0.08em; text-transform: uppercase; }
+.gazette-rule { height: 8px; margin: 18px 0 14px; border-top: 2px solid #363531; border-bottom: 2px solid #363531; }
+.gazette-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; text-align: left; }
+.gazette-columns > div + div { border-left: 1px solid rgba(54,53,49,0.35); padding-left: 34px; }
+.gazette-columns h3 { margin: 0 0 9px; font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; color: #272622; }
+.gazette-columns p { margin: 0 0 14px; font-size: 1.08rem; line-height: 1.32; color: #363531; }
+.gazette-signoff { margin-top: 28px !important; text-align: right; font-style: italic; }
+.gazette-signoff span { font-family: var(--font-script); font-size: 1.8rem; color: #272622; }
+
+@media (max-width: 600px) {
+  .society-gazette { padding: 24px 14px 46px; }
+  .gazette-sheet { padding: 22px 20px 24px; }
+  .gazette-name { font-size: 2rem; }
+  .gazette-header h2 { font-size: 1.1rem; }
+  .gazette-edition { font-size: 0.68rem; }
+  .gazette-columns { grid-template-columns: 1fr; gap: 0; }
+  .gazette-columns > div + div { border-left: 0; border-top: 1px solid rgba(54,53,49,0.35); padding: 16px 0 0; }
+}
+
+/* ==========================================================================
    BUTTONS
    ========================================================================== */
 .btn {
