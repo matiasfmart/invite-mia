@@ -31,6 +31,7 @@ const CONFIG = {
 // ==========================================================================
 (function nav() {
   const nav = document.getElementById('site-nav');
+  const progress = document.getElementById('reading-progress');
   const links = document.querySelectorAll('[data-nav]');
   const toggle = document.getElementById('nav-toggle');
   const linksContainer = document.getElementById('nav-links');
@@ -50,6 +51,8 @@ const CONFIG = {
 
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 40);
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.transform = `scaleX(${scrollable > 0 ? window.scrollY / scrollable : 0})`;
 
     let currentIndex = -1;
     sections.forEach((sec, i) => {
