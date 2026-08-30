@@ -141,30 +141,37 @@ const CONFIG = {
   window.addEventListener('resize', resize);
   resize();
 
-  function makeParticle() {
+  function makeParticle(startOnScreen = false) {
     return {
       x: Math.random() * w,
-      y: Math.random() * -h,
-      size: 3 + Math.random() * 4,
-      speedY: 0.2 + Math.random() * 0.45,
-      speedX: (Math.random() - 0.5) * 0.3,
+      y: startOnScreen ? Math.random() * h : Math.random() * -h,
+      size: 4 + Math.random() * 7,
+      speedY: 0.35 + Math.random() * 0.7,
+      speedX: (Math.random() - 0.5) * 0.55,
       rotation: Math.random() * Math.PI * 2,
       rotSpeed: (Math.random() - 0.5) * 0.02,
-      opacity: 0.1 + Math.random() * 0.16,
-      color: Math.random() > 0.5 ? '185,154,97' : '216,183,180',
+      opacity: 0.26 + Math.random() * 0.32,
+      color: Math.random() > 0.35 ? '216,183,180' : '238,218,183',
     };
   }
 
-  const COUNT = reduceMotion ? 0 : Math.min(24, Math.floor(w / 60));
-  particles = Array.from({ length: COUNT }, makeParticle);
+  const COUNT = reduceMotion ? 0 : Math.min(52, Math.floor(w / 24));
+  particles = Array.from({ length: COUNT }, () => makeParticle(true));
 
   function drawPetal(p) {
     ctx.save();
     ctx.translate(p.x, p.y);
     ctx.rotate(p.rotation);
-    ctx.beginPath();
     ctx.fillStyle = `rgba(${p.color},${p.opacity})`;
-    ctx.ellipse(0, 0, p.size, p.size / 1.7, 0, 0, Math.PI * 2);
+    for (let index = 0; index < 5; index++) {
+      ctx.rotate((Math.PI * 2) / 5);
+      ctx.beginPath();
+      ctx.ellipse(0, -p.size / 2, p.size * 0.42, p.size * 0.72, 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(185,154,97,${Math.min(0.7, p.opacity + 0.2)})`;
+    ctx.arc(0, 0, p.size * 0.2, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
   }
