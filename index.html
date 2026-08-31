@@ -15,7 +15,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/style.css">
 </head>
@@ -120,12 +120,9 @@
           <img src="assets/gallery/Lady-Whistledown-Elegant-Monogram-PNG.png" alt="">
         </div>
         <p class="gazette-name">Lady Whistledown's</p>
-        <h2 id="gazette-title">Papeles de Sociedad</h2>
-        <p class="gazette-edition">Personas extraordinarias. Noticias extraordinarias.</p>
+        <h2 id="gazette-title">Society Papers</h2>
       </header>
-      <div class="gazette-seal" aria-hidden="true">Mia</div>
-      <div class="gazette-blot" aria-hidden="true"></div>
-      <div class="gazette-rule"></div>
+      <p class="gazette-edition">Personas extraordinarias, noticias extraordinarias</p>
       <div class="gazette-columns">
         <div>
           <h3>Querido y gentil lector,</h3>
@@ -135,30 +132,46 @@
         <div>
           <h3>Una velada por recordar</h3>
           <p>Se espera a los invitados con su mejor encanto, listos para brindar, bailar y guardar recuerdos de una noche que promete ser verdaderamente especial.</p>
-          <p class="gazette-signoff reveal">Con toda consideración,<br><span class="write-on write-on-flow">La cronista de sociedad<span class="quill-tip" aria-hidden="true">✒</span></span></p>
+          <p class="gazette-signoff">Con toda consideración,<br><span>La cronista de sociedad</span></p>
         </div>
       </div>
+      <div class="gazette-dateline">Mia · Quince Años · 30 de Octubre de 2026</div>
+    </article>
     </article>
   </section>
 
   <!-- ============ QUOTE ============ -->
   <section id="augurio" class="quote-section chapter" data-chapter="III" data-chapter-name="El augurio">
-    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
-    <p class="society-signature reveal"><span class="write-on write-on-flow write-on-script">Lady Whistledown informa<span class="quill-tip" aria-hidden="true">✒</span></span></p>
-    <p class="quote-text reveal">“La temporada reserva una velada inolvidable:<br>una joven encantadora, música, flores y una celebración digna de recordar.”</p>
-    <p class="society-closing reveal">Esperamos contar con vuestra distinguida presencia.</p>
-    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
+    <button class="oracle-card reveal" id="oracle-card" aria-expanded="false">
+      <span class="oracle-card-inner">
+        <span class="oracle-face oracle-front">
+          <span class="oracle-emblem">✦</span>
+          <span class="oracle-hint">Tocá la carta para revelar tu augurio</span>
+        </span>
+        <span class="oracle-face oracle-back">
+          <span class="ornate-divider-mini"><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg></span>
+          <span class="society-signature"><span class="write-on write-on-flow">Lady Whistledown informa<span class="quill-tip" aria-hidden="true">✒</span></span></span>
+          <span class="quote-text">“La temporada reserva una velada inolvidable:<br>una joven encantadora, música, flores y una celebración digna de recordar.”</span>
+          <span class="society-closing">Esperamos contar con vuestra distinguida presencia.</span>
+        </span>
+      </span>
+    </button>
   </section>
 
   <!-- ============ COUNTDOWN ============ -->
   <section id="countdown-section" class="countdown-section chapter" data-chapter="IV" data-chapter-name="La cuenta">
     <p class="section-kicker reveal">El baile se aproxima</p>
     <h2 class="section-title reveal">La cuenta de la temporada</h2>
-    <div class="countdown reveal" id="countdown">
-      <div class="countdown-box"><span class="cd-num" id="cd-days">00</span><span class="cd-label">Días</span></div>
-      <div class="countdown-box"><span class="cd-num" id="cd-hours">00</span><span class="cd-label">Horas</span></div>
-      <div class="countdown-box"><span class="cd-num" id="cd-mins">00</span><span class="cd-label">Min</span></div>
-      <div class="countdown-box"><span class="cd-num" id="cd-secs">00</span><span class="cd-label">Seg</span></div>
+    <div class="pocket-watch reveal">
+      <span class="watch-loop"></span>
+      <div class="watch-face">
+        <div class="countdown" id="countdown">
+          <div class="countdown-box"><span class="cd-num" id="cd-days">00</span><span class="cd-label">Días</span></div>
+          <div class="countdown-box"><span class="cd-num" id="cd-hours">00</span><span class="cd-label">Horas</span></div>
+          <div class="countdown-box"><span class="cd-num" id="cd-mins">00</span><span class="cd-label">Min</span></div>
+          <div class="countdown-box"><span class="cd-num" id="cd-secs">00</span><span class="cd-label">Seg</span></div>
+        </div>
+      </div>
     </div>
     <p class="countdown-caption reveal">hasta que comience una noche digna de recordar.</p>
   </section>
@@ -262,12 +275,15 @@
     <div class="royal-card reveal centered-card">
       <div class="royal-card-icon"><svg viewBox="0 0 48 48"><rect x="7" y="19" width="34" height="22" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 27h34" stroke="currentColor" stroke-width="2"/><path d="M24 19v22" stroke="currentColor" stroke-width="2"/><path d="M24 19c-4-8-14-8-14-1 0 3 6 1 14 1zM24 19c4-8 14-8 14-1 0 3-6 1-14 1z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
       <p>Tu presencia es el regalo más importante.<br>Si además querés hacerle un obsequio a Mia, se agradece una <strong>lluvia de sobres</strong>.</p>
-      <div class="alias-box">
-        <span id="alias-text">alias.mia.xv15</span>
-        <button class="btn btn-outline-gold" id="copy-alias">
-          Copiar alias
-          <svg class="copy-check" id="copy-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l6 6L20 6"/></svg>
-        </button>
+      <div class="alias-envelope">
+        <span class="alias-envelope-flap"></span>
+        <div class="alias-box">
+          <span id="alias-text">alias.mia.xv15</span>
+          <button class="btn btn-outline-gold" id="copy-alias">
+            Copiar alias
+            <svg class="copy-check" id="copy-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l6 6L20 6"/></svg>
+          </button>
+        </div>
       </div>
       <p class="copied-msg" id="copied-msg">¡Alias copiado!</p>
     </div>

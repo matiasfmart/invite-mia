@@ -150,6 +150,10 @@ const CONFIG = {
       if (entry.isIntersecting) {
         entry.target.classList.add('in-view');
         observer.unobserve(entry.target);
+        // Mobile has no hover, so preview the card's 3D depth automatically once.
+        if (entry.target.classList.contains('gazette-sheet')) {
+          setTimeout(() => entry.target.classList.add('tilt-preview'), 900);
+        }
       }
     });
   }, { threshold: 0.15 });
@@ -426,6 +430,22 @@ const CONFIG = {
       void swatch.offsetWidth; // restart animation
       swatch.classList.add('rippling');
     });
+  });
+})();
+
+// ==========================================================================
+// ORACLE CARD: tap to flip and reveal the augury
+// ==========================================================================
+(function oracleCard() {
+  const card = document.getElementById('oracle-card');
+  if (!card) return;
+  card.addEventListener('click', () => {
+    const flipped = card.classList.toggle('flipped');
+    card.setAttribute('aria-expanded', String(flipped));
+    if (flipped) {
+      const box = card.getBoundingClientRect();
+      window.spawnFloralBurst?.(box.left + box.width / 2, box.top + box.height / 2);
+    }
   });
 })();
 
