@@ -15,14 +15,65 @@ const CONFIG = {
   const envelope = document.getElementById('envelope');
   const seal = document.getElementById('wax-seal');
 
+  seal.addEventListener('pointerdown', () => seal.classList.add('pressing'));
+  seal.addEventListener('pointerup', () => seal.classList.remove('pressing'));
+  seal.addEventListener('pointercancel', () => seal.classList.remove('pressing'));
+
   seal.addEventListener('click', () => {
+    seal.classList.remove('pressing');
+    seal.classList.add('rippling');
     envelope.classList.add('opening');
+    const box = seal.getBoundingClientRect();
+    window.spawnFloralBurst?.(box.left + box.width / 2, box.top + box.height / 2);
     document.body.style.overflow = 'hidden';
     setTimeout(() => {
       screen.classList.add('hidden');
       document.body.style.overflow = '';
       document.body.classList.add('invitation-open');
     }, 1300);
+  });
+})();
+
+// ==========================================================================
+// STAGGERED REVEAL DELAYS (grids, timeline, gallery feel less "all at once")
+// ==========================================================================
+(function staggerReveals() {
+  document.querySelectorAll('.cards-grid, .timeline, .gallery-grid, .palette-row').forEach(group => {
+    group.querySelectorAll(':scope > .reveal, :scope > *').forEach((item, index) => {
+      if (item.classList.contains('reveal') || item.querySelector('.reveal')) {
+        const target = item.classList.contains('reveal') ? item : item.querySelector('.reveal');
+        target.style.transitionDelay = `${Math.min(index * 0.09, 0.5)}s`;
+      }
+    });
+  });
+})();
+
+// ==========================================================================
+// TILT ON TOUCH/POINTER (mobile-first: tap gives a quick tilt pulse,
+// mouse gets a smooth continuous follow — same listeners for both)
+// ==========================================================================
+(function tiltOnPointer() {
+  const items = document.querySelectorAll('.royal-card, .gallery-frame, .gazette-sheet');
+  const applyTilt = (item, clientX, clientY) => {
+    const box = item.getBoundingClientRect();
+    const px = (clientX - box.left) / box.width - 0.5;
+    const py = (clientY - box.top) / box.height - 0.5;
+    item.style.transform = `perspective(700px) rotateY(${px * 10}deg) rotateX(${-py * 10}deg) translateY(-4px)`;
+  };
+  const resetTilt = (item) => { item.style.transform = ''; };
+
+  items.forEach(item => {
+    item.addEventListener('pointerdown', (e) => {
+      applyTilt(item, e.clientX, e.clientY);
+      if (e.pointerType === 'touch') setTimeout(() => resetTilt(item), 320);
+    });
+    item.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse') return; // avoid fighting page scroll on touch drag
+      applyTilt(item, e.clientX, e.clientY);
+    });
+    item.addEventListener('pointerup', () => resetTilt(item));
+    item.addEventListener('pointerleave', () => resetTilt(item));
+    item.addEventListener('pointercancel', () => resetTilt(item));
   });
 })();
 
@@ -39,12 +90,14 @@ const CONFIG = {
 
   toggle.addEventListener('click', () => {
     const open = linksContainer.classList.toggle('open');
+    toggle.classList.toggle('open', open);
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'Cerrar navegación' : 'Abrir navegación');
   });
 
   links.forEach(link => link.addEventListener('click', () => {
     linksContainer.classList.remove('open');
+    toggle.classList.remove('open');
     toggle.setAttribute('aria-expanded', 'false');
     toggle.setAttribute('aria-label', 'Abrir navegación');
   }));
@@ -79,15 +132,27 @@ const CONFIG = {
 })();
 
 // ==========================================================================
-// PARALLAX ON HERO
+// PARALLAX ON HERO (mouse: follows cursor · touch: a one-shot nudge on tap
+// so it never competes with scrolling the page)
 // ==========================================================================
 (function parallax() {
   const frame = document.querySelector('[data-parallax]');
   if (!frame) return;
-  window.addEventListener('mousemove', (e) => {
+
+  window.addEventListener('pointermove', (e) => {
+    if (e.pointerType !== 'mouse') return;
     const x = (e.clientX / window.innerWidth - 0.5) * 10;
     const y = (e.clientY / window.innerHeight - 0.5) * 10;
     frame.style.transform = `translate(${x}px, ${y}px)`;
+  });
+
+  frame.addEventListener('pointerdown', (e) => {
+    if (e.pointerType !== 'touch') return;
+    const box = frame.getBoundingClientRect();
+    const x = ((e.clientX - box.left) / box.width - 0.5) * 8;
+    const y = ((e.clientY - box.top) / box.height - 0.5) * 8;
+    frame.style.transform = `translate(${x}px, ${y}px)`;
+    setTimeout(() => { frame.style.transform = ''; }, 380);
   });
 })();
 
@@ -161,6 +226,16 @@ const CONFIG = {
   const COUNT = reduceMotion ? 0 : Math.min(52, Math.floor(w / 24));
   particles = Array.from({ length: COUNT }, () => makeParticle(true));
 
+  // Twinkling gold dust that lingers in place, like motes caught in candlelight.
+  const MOTE_COUNT = reduceMotion ? 0 : Math.min(20, Math.floor(w / 40));
+  const motes = Array.from({ length: MOTE_COUNT }, () => ({
+    x: Math.random() * w,
+    y: Math.random() * h,
+    size: 1 + Math.random() * 1.6,
+    phase: Math.random() * Math.PI * 2,
+    speed: 0.02 + Math.random() * 0.03,
+  }));
+
   function drawPetal(p) {
     ctx.save();
     ctx.translate(p.x, p.y);
@@ -179,8 +254,70 @@ const CONFIG = {
     ctx.restore();
   }
 
+  // Tap/click anywhere (outside interactive controls) blooms a small burst
+  // of flowers from the touch point — the invitation reacts to the reader.
+  let bursts = [];
+  function spawnBurst(x, y) {
+    if (reduceMotion) return;
+    const count = 10;
+    for (let index = 0; index < count; index++) {
+      const angle = (Math.PI * 2 * index) / count + Math.random() * 0.4;
+      const speed = 1.4 + Math.random() * 2.2;
+      bursts.push({
+        x, y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - 0.6,
+        size: 5 + Math.random() * 6,
+        rotation: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 0.12,
+        life: 0,
+        maxLife: 46 + Math.random() * 20,
+        color: Math.random() > 0.4 ? '216,183,180' : '185,154,97',
+      });
+    }
+  }
+  window.spawnFloralBurst = spawnBurst;
+
+  // A finger dragged across the page leaves a trail of gold sparks.
+  let sparkles = [];
+  let lastSparkleAt = 0;
+  function spawnSparkle(x, y) {
+    if (reduceMotion || sparkles.length > 90) return;
+    sparkles.push({
+      x, y,
+      vy: -0.4 - Math.random() * 0.5,
+      size: 2 + Math.random() * 2.4,
+      life: 0,
+      maxLife: 26 + Math.random() * 14,
+    });
+  }
+  document.addEventListener('pointermove', (e) => {
+    if (e.buttons !== 1 && e.pointerType !== 'touch') return;
+    const now = performance.now();
+    if (now - lastSparkleAt < 35) return;
+    lastSparkleAt = now;
+    spawnSparkle(e.clientX, e.clientY);
+  });
+
+  const interactiveTag = /^(A|BUTTON|INPUT|TEXTAREA|SELECT|LABEL)$/;
+  document.addEventListener('pointerdown', (e) => {
+    if (interactiveTag.test(e.target.tagName) || e.target.closest('a, button, input, textarea, select, label')) return;
+    spawnBurst(e.clientX, e.clientY);
+  });
+
   function animate() {
     ctx.clearRect(0, 0, w, h);
+    motes.forEach(m => {
+      m.phase += m.speed;
+      const twinkle = 0.15 + (Math.sin(m.phase) + 1) / 2 * 0.35;
+      ctx.save();
+      ctx.globalAlpha = twinkle;
+      ctx.fillStyle = '#e6cf8f';
+      ctx.beginPath();
+      ctx.arc(m.x, m.y, m.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    });
     particles.forEach(p => {
       p.y += p.speedY;
       p.x += p.speedX;
@@ -188,9 +325,49 @@ const CONFIG = {
       if (p.y > h + 20) Object.assign(p, makeParticle(), { y: -20 });
       drawPetal(p);
     });
+    bursts.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.05;
+      p.vx *= 0.96;
+      p.rotation += p.rotSpeed;
+      p.life++;
+      const fade = Math.max(0, 1 - p.life / p.maxLife);
+      ctx.save();
+      ctx.globalAlpha = fade;
+      drawPetal({ ...p, opacity: 0.7 });
+      ctx.restore();
+    });
+    bursts = bursts.filter(p => p.life < p.maxLife);
+    sparkles.forEach(p => {
+      p.y += p.vy;
+      p.life++;
+      const fade = Math.max(0, 1 - p.life / p.maxLife);
+      ctx.save();
+      ctx.globalAlpha = fade;
+      ctx.fillStyle = '#dfcf9a';
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    });
+    sparkles = sparkles.filter(p => p.life < p.maxLife);
     requestAnimationFrame(animate);
   }
   if (!reduceMotion) animate();
+})();
+
+// ==========================================================================
+// SWATCH RIPPLE ON TAP
+// ==========================================================================
+(function swatchRipple() {
+  document.querySelectorAll('.swatch').forEach(swatch => {
+    swatch.addEventListener('pointerdown', () => {
+      swatch.classList.remove('rippling');
+      void swatch.offsetWidth; // restart animation
+      swatch.classList.add('rippling');
+    });
+  });
 })();
 
 // ==========================================================================
@@ -250,6 +427,7 @@ const CONFIG = {
 (function copyAlias() {
   const aliasText = document.getElementById('alias-text');
   const copyBtn = document.getElementById('copy-alias');
+  const check = document.getElementById('copy-check');
   const msg = document.getElementById('copied-msg');
   aliasText.textContent = CONFIG.aliasBancario;
 
@@ -259,6 +437,9 @@ const CONFIG = {
     } catch {
       // fallback silencioso si el navegador bloquea el clipboard
     }
+    check.classList.remove('drawn');
+    void check.offsetWidth; // restart animation
+    check.classList.add('drawn');
     msg.classList.add('show');
     setTimeout(() => msg.classList.remove('show'), 2200);
   });
@@ -269,6 +450,9 @@ const CONFIG = {
 // ==========================================================================
 (function rsvp() {
   const form = document.getElementById('rsvp-form');
+  const submitBtn = form.querySelector('.rsvp-submit');
+  const originalLabel = submitBtn.textContent;
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const name = document.getElementById('rsvp-name').value.trim();
@@ -284,9 +468,18 @@ const CONFIG = {
       message ? `Mensaje: ${message}` : null,
     ].filter(Boolean).join('\n');
 
+    submitBtn.disabled = true;
+    submitBtn.classList.add('sending');
+    submitBtn.textContent = 'Enviando…';
+
     const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
-    fireConfetti();
-    setTimeout(() => window.open(url, '_blank', 'noopener'), 500);
+    setTimeout(() => {
+      fireConfetti();
+      window.open(url, '_blank', 'noopener');
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('sending');
+      submitBtn.textContent = originalLabel;
+    }, 700);
   });
 })();
 
