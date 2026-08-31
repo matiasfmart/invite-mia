@@ -24,6 +24,12 @@
 <!-- ============ CURSOR SPARKLES CANVAS ============ -->
 <canvas id="petals-canvas"></canvas>
 
+<!-- ============ CHAPTER MARKER ============ -->
+<div class="chapter-marker" id="chapter-marker" aria-hidden="true">
+  <span class="chapter-marker-num" id="chapter-marker-num">I</span>
+  <span class="chapter-marker-name" id="chapter-marker-name">El anuncio</span>
+</div>
+
 <!-- ============ SOBRE / ENVELOPE INTRO ============ -->
 <div id="envelope-screen" aria-label="Pantalla de apertura de invitación">
   <div class="envelope-wrap">
@@ -44,29 +50,24 @@
   </div>
 </div>
 
-<!-- ============ NAV: RIBBON BOOKMARK + WAX-SEAL SCROLL MENU ============ -->
+<!-- ============ NAV: TARJETA DE BAILE (DANCE CARD BOOKLET) ============ -->
 <div class="ribbon-progress" aria-hidden="true">
   <div class="ribbon-fill" id="ribbon-fill"><span class="ribbon-charm"></span></div>
 </div>
 
-<button class="nav-seal" id="nav-seal" type="button" aria-label="Abrir índice de la velada" aria-controls="nav-scroll" aria-expanded="false">
-  <span class="nav-seal-letter">Mia</span>
-</button>
-
 <div class="nav-scrim" id="nav-scrim"></div>
-<nav class="nav-scroll" id="nav-scroll" aria-hidden="true">
-  <div class="nav-scroll-inner">
-    <p class="nav-scroll-title">Índice de la velada</p>
-    <div class="nav-scroll-rule"></div>
-    <a href="#hero" data-nav>El anuncio</a>
-    <a href="#detalles" data-nav>La velada</a>
-    <a href="#cronograma" data-nav>El baile</a>
-    <a href="#vestimenta" data-nav>Atuendo</a>
-    <a href="#galeria" data-nav>Retratos</a>
-    <a href="#regalos" data-nav>Obsequios</a>
-    <a href="#confirmar" data-nav class="nav-scroll-cta">Responder</a>
+<button class="nav-tab" id="nav-tab" type="button" aria-label="Abrir tarjeta de baile" aria-controls="nav-card" aria-expanded="false">
+  <span>Tarjeta de baile</span>
+</button>
+<div class="nav-card" id="nav-card" aria-hidden="true">
+  <div class="nav-card-inner">
+    <p class="nav-card-title">Programa de la Velada</p>
+    <p class="nav-card-subtitle">Toque cada capítulo para asistir</p>
+    <div class="nav-card-rule"></div>
+    <ol class="nav-card-list" id="nav-card-list"></ol>
   </div>
-</nav>
+</div>
+
 
 <!-- ============ MUSIC TOGGLE ============ -->
 <button id="music-toggle" class="music-toggle" aria-label="Reproducir música">
@@ -79,7 +80,7 @@
 <main>
 
   <!-- ============ HERO ============ -->
-  <section id="hero" class="hero">
+  <section id="hero" class="hero chapter" data-chapter="I" data-chapter-name="El anuncio">
     <div class="hero-frame" data-parallax>
       <svg class="corner corner-tl" viewBox="0 0 120 120"><use href="#ornament-corner"/></svg>
       <svg class="corner corner-tr" viewBox="0 0 120 120"><use href="#ornament-corner"/></svg>
@@ -112,7 +113,7 @@
   </section>
 
   <!-- ============ SOCIETY GAZETTE ============ -->
-  <section class="society-gazette" aria-labelledby="gazette-title">
+  <section id="gazette" class="society-gazette chapter" data-chapter="II" data-chapter-name="La crónica" aria-labelledby="gazette-title">
     <article class="gazette-sheet reveal">
       <header class="gazette-header">
         <div class="gazette-portrait" aria-hidden="true">
@@ -141,7 +142,7 @@
   </section>
 
   <!-- ============ QUOTE ============ -->
-  <section class="quote-section">
+  <section id="augurio" class="quote-section chapter" data-chapter="III" data-chapter-name="El augurio">
     <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
     <p class="society-signature reveal"><span class="write-on write-on-flow write-on-script">Lady Whistledown informa<span class="quill-tip" aria-hidden="true">✒</span></span></p>
     <p class="quote-text reveal">“La temporada reserva una velada inolvidable:<br>una joven encantadora, música, flores y una celebración digna de recordar.”</p>
@@ -150,7 +151,7 @@
   </section>
 
   <!-- ============ COUNTDOWN ============ -->
-  <section id="countdown-section" class="countdown-section">
+  <section id="countdown-section" class="countdown-section chapter" data-chapter="IV" data-chapter-name="La cuenta">
     <p class="section-kicker reveal">El baile se aproxima</p>
     <h2 class="section-title reveal">La cuenta de la temporada</h2>
     <div class="countdown reveal" id="countdown">
@@ -163,7 +164,7 @@
   </section>
 
   <!-- ============ DETALLES ============ -->
-  <section id="detalles" class="section detalles">
+  <section id="detalles" class="section detalles chapter" data-chapter="V" data-chapter-name="La velada">
     <p class="section-kicker reveal">El anuncio oficial</p>
     <h2 class="section-title reveal">La velada de Mia</h2>
     <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
@@ -202,7 +203,7 @@
   </section>
 
   <!-- ============ CRONOGRAMA ============ -->
-  <section id="cronograma" class="section cronograma">
+  <section id="cronograma" class="section cronograma chapter" data-chapter="VI" data-chapter-name="El baile">
     <p class="section-kicker reveal">Un programa para recordar</p>
     <h2 class="section-title reveal">El orden de la velada</h2>
     <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
@@ -218,7 +219,7 @@
   </section>
 
   <!-- ============ VESTIMENTA ============ -->
-  <section id="vestimenta" class="section vestimenta">
+  <section id="vestimenta" class="section vestimenta chapter" data-chapter="VII" data-chapter-name="El atuendo">
     <p class="section-kicker reveal">Una noche de gala</p>
     <h2 class="section-title reveal">El atuendo</h2>
     <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
@@ -232,7 +233,7 @@
   </section>
 
   <!-- ============ GALERÍA ============ -->
-  <section id="galeria" class="section galeria">
+  <section id="galeria" class="section galeria chapter" data-chapter="VIII" data-chapter-name="Los retratos">
     <p class="section-kicker reveal">Recuerdos de la temporada</p>
     <h2 class="section-title reveal">Los retratos de Mia</h2>
     <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
@@ -254,7 +255,7 @@
   </div>
 
   <!-- ============ REGALOS ============ -->
-  <section id="regalos" class="section regalos">
+  <section id="regalos" class="section regalos chapter" data-chapter="IX" data-chapter-name="Los obsequios">
     <p class="section-kicker reveal">Un gesto de cariño</p>
     <h2 class="section-title reveal">Obsequios</h2>
     <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
@@ -273,7 +274,7 @@
   </section>
 
   <!-- ============ CONFIRMAR (RSVP) ============ -->
-  <section id="confirmar" class="section confirmar">
+  <section id="confirmar" class="section confirmar chapter" data-chapter="X" data-chapter-name="La respuesta">
     <p class="section-kicker reveal">La lista de invitados</p>
     <h2 class="section-title reveal">Respondé a la invitación</h2>
     <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>

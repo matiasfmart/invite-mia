@@ -78,35 +78,50 @@ const CONFIG = {
 })();
 
 // ==========================================================================
-// NAV: wax-seal FAB that unrolls a parchment index + ribbon scroll marker
+// NAV: "Tarjeta de baile" — a dance-card booklet that flips open from an
+// edge tab, its programme built straight from the chapter sections.
 // ==========================================================================
 (function nav() {
-  const seal = document.getElementById('nav-seal');
-  const scroll = document.getElementById('nav-scroll');
+  const tab = document.getElementById('nav-tab');
+  const card = document.getElementById('nav-card');
   const scrim = document.getElementById('nav-scrim');
+  const list = document.getElementById('nav-card-list');
   const ribbonFill = document.getElementById('ribbon-fill');
+  const chapters = document.querySelectorAll('.chapter[id]');
+
+  chapters.forEach(ch => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = `#${ch.id}`;
+    a.dataset.nav = '';
+    a.dataset.roman = ch.dataset.chapter;
+    a.textContent = ch.dataset.chapterName;
+    li.appendChild(a);
+    list.appendChild(li);
+  });
+
   const links = document.querySelectorAll('[data-nav]');
   const sections = Array.from(links).map(a => document.querySelector(a.getAttribute('href')));
 
   function openMenu() {
-    scroll.classList.add('open');
+    card.classList.add('open');
     scrim.classList.add('open');
-    seal.classList.add('open');
-    seal.setAttribute('aria-expanded', 'true');
-    scroll.setAttribute('aria-hidden', 'false');
-    const box = seal.getBoundingClientRect();
-    window.spawnFloralBurst?.(box.left + box.width / 2, box.top + box.height / 2);
+    tab.classList.add('open');
+    tab.setAttribute('aria-expanded', 'true');
+    card.setAttribute('aria-hidden', 'false');
+    const box = tab.getBoundingClientRect();
+    window.spawnFloralBurst?.(box.left, box.top + box.height / 2);
   }
   function closeMenu() {
-    scroll.classList.remove('open');
+    card.classList.remove('open');
     scrim.classList.remove('open');
-    seal.classList.remove('open');
-    seal.setAttribute('aria-expanded', 'false');
-    scroll.setAttribute('aria-hidden', 'true');
+    tab.classList.remove('open');
+    tab.setAttribute('aria-expanded', 'false');
+    card.setAttribute('aria-hidden', 'true');
   }
 
-  seal.addEventListener('click', () => {
-    scroll.classList.contains('open') ? closeMenu() : openMenu();
+  tab.addEventListener('click', () => {
+    card.classList.contains('open') ? closeMenu() : openMenu();
   });
   scrim.addEventListener('click', closeMenu);
   links.forEach(link => link.addEventListener('click', closeMenu));
@@ -139,6 +154,36 @@ const CONFIG = {
     });
   }, { threshold: 0.15 });
   items.forEach(el => observer.observe(el));
+})();
+
+// ==========================================================================
+// CHAPTER MARKER + PAGE-TURN TRANSITION BETWEEN SECTIONS
+// ==========================================================================
+(function chapters() {
+  const chapters = document.querySelectorAll('.chapter');
+  const markerNum = document.getElementById('chapter-marker-num');
+  const markerName = document.getElementById('chapter-marker-name');
+  if (!chapters.length || !markerNum) return;
+
+  const turnObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        turnObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  chapters.forEach(ch => turnObserver.observe(ch));
+
+  const markerObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        markerNum.textContent = entry.target.dataset.chapter;
+        markerName.textContent = entry.target.dataset.chapterName;
+      }
+    });
+  }, { threshold: 0, rootMargin: '-45% 0px -45% 0px' });
+  chapters.forEach(ch => markerObserver.observe(ch));
 })();
 
 // ==========================================================================
@@ -194,6 +239,10 @@ const CONFIG = {
         els[key].classList.remove('tick');
         void els[key].offsetWidth; // restart animation
         els[key].classList.add('tick');
+        const box = els[key].closest('.countdown-box');
+        box.classList.remove('impact');
+        void box.offsetWidth;
+        box.classList.add('impact');
         prev[key] = str;
       }
     });
@@ -512,6 +561,7 @@ function fireConfetti() {
     color: colors[Math.floor(Math.random() * colors.length)],
     rotation: Math.random() * Math.PI * 2,
     rotSpeed: (Math.random() - 0.5) * 0.3,
+    petal: Math.random() > 0.5,
     life: 0,
   }));
 
@@ -533,7 +583,13 @@ function fireConfetti() {
         ctx.translate(p.x, p.y);
         ctx.rotate(p.rotation);
         ctx.fillStyle = p.color;
-        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+        if (p.petal) {
+          ctx.beginPath();
+          ctx.ellipse(0, 0, p.size * 0.55, p.size, 0, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+        }
         ctx.restore();
       }
     });
