@@ -78,34 +78,44 @@ const CONFIG = {
 })();
 
 // ==========================================================================
-// NAV: scrolled state + active link + smooth close on mobile
+// NAV: wax-seal FAB that unrolls a parchment index + ribbon scroll marker
 // ==========================================================================
 (function nav() {
-  const nav = document.getElementById('site-nav');
-  const progress = document.getElementById('reading-progress');
+  const seal = document.getElementById('nav-seal');
+  const scroll = document.getElementById('nav-scroll');
+  const scrim = document.getElementById('nav-scrim');
+  const ribbonFill = document.getElementById('ribbon-fill');
   const links = document.querySelectorAll('[data-nav]');
-  const toggle = document.getElementById('nav-toggle');
-  const linksContainer = document.getElementById('nav-links');
   const sections = Array.from(links).map(a => document.querySelector(a.getAttribute('href')));
 
-  toggle.addEventListener('click', () => {
-    const open = linksContainer.classList.toggle('open');
-    toggle.classList.toggle('open', open);
-    toggle.setAttribute('aria-expanded', String(open));
-    toggle.setAttribute('aria-label', open ? 'Cerrar navegación' : 'Abrir navegación');
-  });
+  function openMenu() {
+    scroll.classList.add('open');
+    scrim.classList.add('open');
+    seal.classList.add('open');
+    seal.setAttribute('aria-expanded', 'true');
+    scroll.setAttribute('aria-hidden', 'false');
+    const box = seal.getBoundingClientRect();
+    window.spawnFloralBurst?.(box.left + box.width / 2, box.top + box.height / 2);
+  }
+  function closeMenu() {
+    scroll.classList.remove('open');
+    scrim.classList.remove('open');
+    seal.classList.remove('open');
+    seal.setAttribute('aria-expanded', 'false');
+    scroll.setAttribute('aria-hidden', 'true');
+  }
 
-  links.forEach(link => link.addEventListener('click', () => {
-    linksContainer.classList.remove('open');
-    toggle.classList.remove('open');
-    toggle.setAttribute('aria-expanded', 'false');
-    toggle.setAttribute('aria-label', 'Abrir navegación');
-  }));
+  seal.addEventListener('click', () => {
+    scroll.classList.contains('open') ? closeMenu() : openMenu();
+  });
+  scrim.addEventListener('click', closeMenu);
+  links.forEach(link => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
 
   window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-    progress.style.transform = `scaleX(${scrollable > 0 ? window.scrollY / scrollable : 0})`;
+    const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
+    ribbonFill.style.height = `${progress * 100}%`;
 
     let currentIndex = -1;
     sections.forEach((sec, i) => {

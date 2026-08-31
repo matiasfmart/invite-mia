@@ -15,7 +15,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600&family=Italianno&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IM+Fell+English:ital@0;1&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/style.css">
 </head>
@@ -44,23 +44,28 @@
   </div>
 </div>
 
-<!-- ============ NAV ============ -->
-<nav id="site-nav" class="site-nav">
-  <div class="nav-inner">
-    <a href="#hero" class="nav-logo">Mia</a>
-    <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Abrir navegación" aria-controls="nav-links" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-    <div class="nav-links" id="nav-links">
-      <a href="#detalles" data-nav>La velada</a>
-      <a href="#cronograma" data-nav>El baile</a>
-      <a href="#vestimenta" data-nav>Atuendo</a>
-      <a href="#galeria" data-nav>Retratos</a>
-      <a href="#regalos" data-nav>Obsequios</a>
-      <a href="#confirmar" data-nav class="nav-cta">Responder</a>
-    </div>
+<!-- ============ NAV: RIBBON BOOKMARK + WAX-SEAL SCROLL MENU ============ -->
+<div class="ribbon-progress" aria-hidden="true">
+  <div class="ribbon-fill" id="ribbon-fill"><span class="ribbon-charm"></span></div>
+</div>
+
+<button class="nav-seal" id="nav-seal" type="button" aria-label="Abrir índice de la velada" aria-controls="nav-scroll" aria-expanded="false">
+  <span class="nav-seal-letter">Mia</span>
+</button>
+
+<div class="nav-scrim" id="nav-scrim"></div>
+<nav class="nav-scroll" id="nav-scroll" aria-hidden="true">
+  <div class="nav-scroll-inner">
+    <p class="nav-scroll-title">Índice de la velada</p>
+    <div class="nav-scroll-rule"></div>
+    <a href="#hero" data-nav>El anuncio</a>
+    <a href="#detalles" data-nav>La velada</a>
+    <a href="#cronograma" data-nav>El baile</a>
+    <a href="#vestimenta" data-nav>Atuendo</a>
+    <a href="#galeria" data-nav>Retratos</a>
+    <a href="#regalos" data-nav>Obsequios</a>
+    <a href="#confirmar" data-nav class="nav-scroll-cta">Responder</a>
   </div>
-  <span class="reading-progress" id="reading-progress" aria-hidden="true"></span>
 </nav>
 
 <!-- ============ MUSIC TOGGLE ============ -->
@@ -117,7 +122,7 @@
         <h2 id="gazette-title">Papeles de Sociedad</h2>
         <p class="gazette-edition">Personas extraordinarias. Noticias extraordinarias.</p>
       </header>
-      <div class="gazette-seal" aria-hidden="true">M·E</div>
+      <div class="gazette-seal" aria-hidden="true">Mia</div>
       <div class="gazette-blot" aria-hidden="true"></div>
       <div class="gazette-rule"></div>
       <div class="gazette-columns">
@@ -129,7 +134,7 @@
         <div>
           <h3>Una velada por recordar</h3>
           <p>Se espera a los invitados con su mejor encanto, listos para brindar, bailar y guardar recuerdos de una noche que promete ser verdaderamente especial.</p>
-          <p class="gazette-signoff reveal">Con toda consideración,<br><span class="write-on write-on-flow">La cronista de sociedad</span></p>
+          <p class="gazette-signoff reveal">Con toda consideración,<br><span class="write-on write-on-flow">La cronista de sociedad<span class="quill-tip" aria-hidden="true">✒</span></span></p>
         </div>
       </div>
     </article>
@@ -138,7 +143,7 @@
   <!-- ============ QUOTE ============ -->
   <section class="quote-section">
     <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
-    <p class="society-signature reveal"><span class="write-on write-on-steps">Lady Whistledown informa</span></p>
+    <p class="society-signature reveal"><span class="write-on write-on-flow write-on-script">Lady Whistledown informa<span class="quill-tip" aria-hidden="true">✒</span></span></p>
     <p class="quote-text reveal">“La temporada reserva una velada inolvidable:<br>una joven encantadora, música, flores y una celebración digna de recordar.”</p>
     <p class="society-closing reveal">Esperamos contar con vuestra distinguida presencia.</p>
     <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
