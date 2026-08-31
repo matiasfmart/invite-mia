@@ -182,7 +182,7 @@ const CONFIG = {
   const markerObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        markerNum.textContent = entry.target.dataset.chapter;
+        markerNum.textContent = `Edición N.\u00b0 ${entry.target.dataset.chapter}`;
         markerName.textContent = entry.target.dataset.chapterName;
       }
     });
