@@ -56,15 +56,27 @@
 </div>
 
 <div class="nav-scrim" id="nav-scrim"></div>
-<button class="nav-tab" id="nav-tab" type="button" aria-label="Abrir tarjeta de baile" aria-controls="nav-card" aria-expanded="false">
-  <span>Tarjeta de baile</span>
+<button class="nav-seal" id="nav-tab" type="button" aria-label="Abrir tarjeta de baile" aria-controls="nav-card" aria-expanded="false">
+  <span class="nav-seal-ring" aria-hidden="true"></span>
+  <span class="nav-seal-crack" aria-hidden="true"></span>
+  <span class="nav-seal-glyph" aria-hidden="true">M</span>
+  <span class="sr-only">Tarjeta de baile</span>
 </button>
 <div class="nav-card" id="nav-card" aria-hidden="true">
   <div class="nav-card-inner">
-    <p class="nav-card-title">Programa de la Velada</p>
-    <p class="nav-card-subtitle">Toque cada capítulo para asistir</p>
-    <div class="nav-card-rule"></div>
-    <ol class="nav-card-list" id="nav-card-list"></ol>
+    <span class="nav-card-sheen" aria-hidden="true"></span>
+    <div class="nav-card-scroll">
+      <svg class="nav-card-crown" viewBox="0 0 64 40" aria-hidden="true">
+        <path d="M4 36 L2 12 L16 22 L32 4 L48 22 L62 12 L60 36 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <circle cx="2" cy="10" r="3" fill="currentColor"/>
+        <circle cx="32" cy="3" r="3.4" fill="currentColor"/>
+        <circle cx="62" cy="10" r="3" fill="currentColor"/>
+      </svg>
+      <p class="nav-card-title">Programa de la Velada</p>
+      <p class="nav-card-subtitle">Toque cada capítulo para asistir</p>
+      <div class="nav-card-rule"></div>
+      <ol class="nav-card-list" id="nav-card-list"></ol>
+    </div>
   </div>
 </div>
 
@@ -162,16 +174,67 @@
   <section id="countdown-section" class="countdown-section chapter" data-chapter="IV" data-chapter-name="La cuenta">
     <p class="section-kicker reveal">El baile se aproxima</p>
     <h2 class="section-title reveal">La cuenta de la temporada</h2>
-    <div class="pocket-watch print-frame reveal">
-      <span class="watch-loop"></span>
-      <div class="watch-face">
-        <div class="countdown" id="countdown">
-          <div class="countdown-box"><span class="cd-num" id="cd-days">00</span><span class="cd-label">Días</span></div>
-          <div class="countdown-box"><span class="cd-num" id="cd-hours">00</span><span class="cd-label">Horas</span></div>
-          <div class="countdown-box"><span class="cd-num" id="cd-mins">00</span><span class="cd-label">Min</span></div>
-          <div class="countdown-box"><span class="cd-num" id="cd-secs">00</span><span class="cd-label">Seg</span></div>
+    <div class="almanac reveal">
+      <span class="alm-halo" aria-hidden="true"></span>
+      <div class="alm-plaque">
+        <span class="alm-sheen" aria-hidden="true"></span>
+        <span class="alm-rivet alm-rivet--tl" aria-hidden="true"></span>
+        <span class="alm-rivet alm-rivet--tr" aria-hidden="true"></span>
+        <span class="alm-rivet alm-rivet--bl" aria-hidden="true"></span>
+        <span class="alm-rivet alm-rivet--br" aria-hidden="true"></span>
+
+        <svg class="crown-icon small" viewBox="0 0 64 40" aria-hidden="true">
+          <path d="M4 36 L2 12 L16 22 L32 4 L48 22 L62 12 L60 36 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <circle cx="2" cy="10" r="3" fill="currentColor"/>
+          <circle cx="32" cy="3" r="3.4" fill="currentColor"/>
+          <circle cx="62" cy="10" r="3" fill="currentColor"/>
+        </svg>
+        <p class="alm-legend">Restan para la velada</p>
+
+        <div class="alm-row">
+          <div class="alm-cell" data-unit="days">
+            <div class="alm-well">
+              <div class="alm-flip"><span class="alm-face alm-face--a">00</span><span class="alm-face alm-face--b">00</span></div>
+            </div>
+            <span class="alm-meter"><i></i></span>
+            <span class="alm-label">Días</span>
+          </div>
+
+          <span class="alm-sep" aria-hidden="true"></span>
+
+          <div class="alm-cell" data-unit="hours">
+            <div class="alm-well">
+              <div class="alm-flip"><span class="alm-face alm-face--a">00</span><span class="alm-face alm-face--b">00</span></div>
+            </div>
+            <span class="alm-meter"><i></i></span>
+            <span class="alm-label">Horas</span>
+          </div>
+
+          <span class="alm-sep" aria-hidden="true"></span>
+
+          <div class="alm-cell" data-unit="mins">
+            <div class="alm-well">
+              <div class="alm-flip"><span class="alm-face alm-face--a">00</span><span class="alm-face alm-face--b">00</span></div>
+            </div>
+            <span class="alm-meter"><i></i></span>
+            <span class="alm-label">Minutos</span>
+          </div>
+
+          <span class="alm-sep" aria-hidden="true"></span>
+
+          <div class="alm-cell alm-cell--live" data-unit="secs">
+            <div class="alm-well">
+              <div class="alm-flip"><span class="alm-face alm-face--a">00</span><span class="alm-face alm-face--b">00</span></div>
+            </div>
+            <span class="alm-meter"><i></i></span>
+            <span class="alm-label">Segundos</span>
+          </div>
         </div>
+
+        <div class="alm-scale" aria-hidden="true"><span class="alm-scale-fill" id="alm-scale-fill"></span></div>
       </div>
+
+      <p class="sr-only" id="countdown-live" role="timer" aria-live="polite"></p>
     </div>
     <p class="countdown-caption reveal">hasta que comience una noche digna de recordar.</p>
   </section>

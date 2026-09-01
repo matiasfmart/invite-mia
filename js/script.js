@@ -23,6 +23,7 @@ const CONFIG = {
     seal.classList.remove('pressing');
     seal.classList.add('rippling');
     envelope.classList.add('opening');
+    window.startInvitationMusic?.();
     const box = seal.getBoundingClientRect();
     window.spawnFloralBurst?.(box.left + box.width / 2, box.top + box.height / 2);
     document.body.style.overflow = 'hidden';
@@ -220,13 +221,44 @@ const CONFIG = {
 // ==========================================================================
 (function countdown() {
   const target = new Date(CONFIG.eventDate).getTime();
-  const els = {
-    days: document.getElementById('cd-days'),
-    hours: document.getElementById('cd-hours'),
-    mins: document.getElementById('cd-mins'),
-    secs: document.getElementById('cd-secs'),
-  };
-  let prev = {};
+  const live = document.getElementById('countdown-live');
+  const scale = document.getElementById('alm-scale-fill');
+  const labels = { days: 'días', hours: 'horas', mins: 'minutos', secs: 'segundos' };
+
+  // Ventana de referencia para la escala: el último año antes de la velada.
+  const WINDOW_MS = 365 * 86400000;
+
+  const cells = {};
+  ['days', 'hours', 'mins', 'secs'].forEach(unit => {
+    const host = document.querySelector(`.alm-cell[data-unit="${unit}"]`);
+    if (!host) return;
+    cells[unit] = {
+      host,
+      flip: host.querySelector('.alm-flip'),
+      faces: host.querySelectorAll('.alm-face'),
+      meter: host.querySelector('.alm-meter i'),
+      rot: 0,
+      value: null,
+    };
+  });
+
+  let lastMinuteAnnounced = null;
+
+  function setCell(unit, str) {
+    const cell = cells[unit];
+    if (!cell || cell.value === str) return;
+
+    cell.rot += 180;
+    // Tras medio giro queda visible la cara opuesta: ahí se imprime el valor nuevo.
+    const incoming = (cell.rot / 180) % 2;
+    cell.faces[incoming].textContent = str;
+    cell.flip.style.transform = `rotateX(${cell.rot}deg)`;
+    cell.value = str;
+
+    cell.host.classList.remove('struck');
+    void cell.host.getBoundingClientRect();
+    cell.host.classList.add('struck');
+  }
 
   function tick() {
     const diff = Math.max(0, target - Date.now());
@@ -236,20 +268,28 @@ const CONFIG = {
     const secs = Math.floor((diff % 60000) / 1000);
 
     const values = { days, hours, mins, secs };
-    Object.entries(values).forEach(([key, val]) => {
-      const str = String(val).padStart(2, '0');
-      if (prev[key] !== str) {
-        els[key].textContent = str;
-        els[key].classList.remove('tick');
-        void els[key].offsetWidth; // restart animation
-        els[key].classList.add('tick');
-        const box = els[key].closest('.countdown-box');
-        box.classList.remove('impact');
-        void box.offsetWidth;
-        box.classList.add('impact');
-        prev[key] = str;
-      }
+    Object.entries(values).forEach(([unit, val]) => {
+      setCell(unit, String(val).padStart(2, '0'));
     });
+
+    // Cada medidor muestra el avance dentro de su propio ciclo.
+    const cycles = { days: days / 365, hours: hours / 24, mins: mins / 60, secs: secs / 60 };
+    Object.entries(cycles).forEach(([unit, ratio]) => {
+      const cell = cells[unit];
+      if (cell && cell.meter) cell.meter.style.width = `${Math.min(1, ratio) * 100}%`;
+    });
+
+    if (scale) {
+      const elapsed = Math.min(1, Math.max(0, 1 - diff / WINDOW_MS));
+      scale.style.width = `${elapsed * 100}%`;
+    }
+
+    // Se anuncia por minuto para no saturar al lector de pantalla.
+    if (live && mins !== lastMinuteAnnounced) {
+      lastMinuteAnnounced = mins;
+      live.textContent =
+        `Faltan ${days} ${labels.days}, ${hours} ${labels.hours} y ${mins} ${labels.mins}.`;
+    }
   }
   tick();
   setInterval(tick, 1000);
@@ -455,19 +495,26 @@ const CONFIG = {
 (function music() {
   const btn = document.getElementById('music-toggle');
   const audio = document.getElementById('bg-music');
-  let playing = false;
 
-  btn.addEventListener('click', () => {
-    if (!playing) {
-      audio.play().catch(() => {
+  function start() {
+    return audio.play()
+      .then(() => btn.classList.add('playing'))
+      .catch(() => {
+        btn.classList.remove('playing');
         console.warn('Agregá un archivo de audio en assets/music/song.mp3 para habilitar la música.');
       });
-      btn.classList.add('playing');
+  }
+
+  // El navegador solo permite audio dentro de un gesto del usuario: lo dispara el sello.
+  window.startInvitationMusic = start;
+
+  btn.addEventListener('click', () => {
+    if (audio.paused) {
+      start();
     } else {
       audio.pause();
       btn.classList.remove('playing');
     }
-    playing = !playing;
   });
 })();
 
