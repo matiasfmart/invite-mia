@@ -26,6 +26,11 @@
   --font-display: 'Cormorant Garamond', serif;
   --font-caps: 'EB Garamond', serif;
   --font-body: 'EB Garamond', serif;
+  /* Títulos de sección: caligrafía formal con grandes florituras, la más suntuosa disponible. */
+  --font-heading: 'Pinyon Script', cursive;
+  /* Masthead de la gaceta: la tipografía exacta de la serie es propietaria y no
+     puede incluirse; esta es la alternativa libre más cercana a ese estilo. */
+  --font-gazette: 'Playfair Display', serif;
 
   --shadow-gold: 0 1px 0 rgba(146,120,70,0.24), 0 10px 24px rgba(93,83,80,0.07);
 }
@@ -101,7 +106,7 @@ body::before {
 }
 @keyframes candle-ambience { 0%, 100% { opacity: 0.85; } 50% { opacity: 1; } }
 
-h1, h2, h3 { font-family: var(--font-display); font-weight: 600; font-optical-sizing: auto; color: var(--color-wine); margin: 0; }
+h1, h2, h3 { font-family: var(--font-heading); font-weight: 400; font-optical-sizing: auto; color: var(--color-wine); margin: 0; }
 
 .muted { color: #9b8987; font-size: 0.85em; }
 
@@ -608,7 +613,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; font-optical-si
 }
 .gazette-portrait img { display: block; width: 100%; height: 100%; object-fit: contain; filter: brightness(0); }
 @keyframes portrait-develop { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
-.gazette-name { margin: 0; font-family: var(--font-display); font-style: italic; font-weight: 600; font-size: 3.1rem; line-height: 1; color: var(--ink); }
+.gazette-name { margin: 0; font-family: var(--font-gazette); font-style: italic; font-weight: 700; font-size: 3.1rem; line-height: 1; color: var(--ink); }
 .gazette-header h2 { margin: 6px 0 0; font-family: var(--font-caps); font-size: 1.35rem; font-weight: 600; color: var(--ink); letter-spacing: 0.32em; text-transform: uppercase; }
 .gazette-edition {
   margin: 18px 0 22px;
@@ -626,10 +631,10 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; font-optical-si
 }
 .gazette-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; text-align: left; }
 .gazette-columns > div + div { border-left: 1px solid rgba(35,31,28,0.35); padding-left: 32px; }
-.gazette-columns h3 { margin: 0 0 8px; font-family: var(--font-display); font-style: italic; font-size: 1.3rem; font-weight: 600; color: var(--ink); }
+.gazette-columns h3 { margin: 0 0 8px; font-family: var(--font-gazette); font-style: italic; font-size: 1.3rem; font-weight: 700; color: var(--ink); }
 .gazette-columns p { margin: 0 0 12px; font-family: var(--font-caps); font-size: 0.86rem; line-height: 1.38; color: var(--ink); text-align: justify; hyphens: auto; }
 .gazette-columns > div:first-child p:first-of-type::first-letter {
-  font-family: var(--font-display);
+  font-family: var(--font-gazette);
   font-weight: 700;
   font-size: 3rem;
   line-height: 0.7;
@@ -757,7 +762,8 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 600; font-optical-si
    COUNTDOWN
    ========================================================================== */
 .countdown-section { text-align: center; padding: 40px 20px 90px; position: relative; z-index: 3; }
-.section-title { font-size: 2rem; margin-bottom: 6px; position: relative; display: inline-block; background-image: linear-gradient(100deg, var(--color-wine) 40%, var(--color-gold) 50%, var(--color-wine) 60%); background-size: 240% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: title-shimmer 7s ease-in-out infinite; }
+/* Tamaño mayor que un serif equivalente: la caligrafía con florituras necesita aire alrededor. */
+.section-title { font-size: clamp(2.8rem, 11vw, 4rem); line-height: 1.4; margin-bottom: 2px; position: relative; display: inline-block; background-image: linear-gradient(100deg, var(--color-wine) 40%, var(--color-gold) 50%, var(--color-wine) 60%); background-size: 240% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: title-shimmer 7s ease-in-out infinite; }
 @keyframes title-shimmer { 0%, 100% { background-position: 0% 0; } 50% { background-position: 100% 0; } }
 .section-title::after { content: ''; position: absolute; left: 50%; bottom: -8px; width: 46px; height: 2px; background: var(--color-gold); transform: translateX(-50%) scaleX(0); transition: transform 0.7s ease 0.15s; }
 .section-title.in-view::after { transform: translateX(-50%) scaleX(1); }
