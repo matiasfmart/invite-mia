@@ -24,7 +24,6 @@ const CONFIG = {
     seal.classList.add('rippling');
     envelope.classList.add('opening');
     window.startInvitationMusic?.();
-    window.enableGyroTilt?.();
     const box = seal.getBoundingClientRect();
     window.spawnFloralBurst?.(box.left + box.width / 2, box.top + box.height / 2);
     document.body.style.overflow = 'hidden';
@@ -188,9 +187,14 @@ const CONFIG = {
       if (entry.isIntersecting) {
         entry.target.classList.add('in-view');
         observer.unobserve(entry.target);
-        // Mobile has no hover, so preview the card's 3D depth automatically once.
+        // Mobile has no hover and the device-tilt sensor proved unreliable across
+        // browsers, so every card previews its own 3D depth automatically once.
         if (entry.target.classList.contains('gazette-sheet')) {
           setTimeout(() => entry.target.classList.add('tilt-preview'), 1150);
+        } else if (entry.target.classList.contains('royal-card')) {
+          setTimeout(() => entry.target.classList.add('tilt-preview'), 1900);
+        } else if (entry.target.classList.contains('gallery-frame') && !entry.target.classList.contains('placeholder')) {
+          setTimeout(() => entry.target.classList.add('tilt-preview'), 1450);
         }
       }
     });
@@ -232,59 +236,6 @@ const CONFIG = {
     });
   }, { threshold: 0, rootMargin: '-45% 0px -45% 0px' });
   chapters.forEach(ch => markerObserver.observe(ch));
-})();
-
-// ==========================================================================
-// GYROSCOPE TILT (mobile-first): la mayoría de quienes abran esta invitación
-// lo harán desde el celular, sin mouse — el tilt por puntero nunca se veía
-// para ellos, solo el pulso de un toque. Inclinar el teléfono ahora inclina
-// las tarjetas de verdad, como mirar a través de un cristal biselado.
-// ==========================================================================
-(function gyroTilt() {
-  const items = document.querySelectorAll('.royal-card, .gallery-frame, .gazette-sheet');
-  if (!items.length || typeof window.DeviceOrientationEvent === 'undefined') return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  let baseBeta = null;
-  let baseGamma = null;
-  let ticking = false;
-  let latest = null;
-
-  function apply() {
-    ticking = false;
-    if (!latest || latest.beta === null || latest.gamma === null) return;
-    if (baseBeta === null) { baseBeta = latest.beta; baseGamma = latest.gamma; }
-    const dx = Math.max(-1, Math.min(1, (latest.gamma - baseGamma) / 22));
-    const dy = Math.max(-1, Math.min(1, (latest.beta - baseBeta) / 22));
-    items.forEach(item => {
-      const rect = item.getBoundingClientRect();
-      if (rect.bottom < 0 || rect.top > window.innerHeight) return; // solo lo que está en pantalla
-      item.style.transform = `perspective(700px) rotateY(${dx * 9}deg) rotateX(${-dy * 9}deg) translateY(-3px)`;
-    });
-  }
-
-  function onOrientation(e) {
-    latest = e;
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(apply);
-  }
-
-  function start() {
-    window.addEventListener('deviceorientation', onOrientation);
-  }
-
-  // iOS 13+ exige permiso explícito, y solo se puede pedir dentro de un gesto del usuario:
-  // se dispara desde el sello de lacre, el primer toque garantizado de la visita.
-  window.enableGyroTilt = function enableGyroTilt() {
-    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-      DeviceOrientationEvent.requestPermission().then(state => {
-        if (state === 'granted') start();
-      }).catch(() => {});
-    } else {
-      start();
-    }
-  };
 })();
 
 // ==========================================================================
