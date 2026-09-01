@@ -230,29 +230,23 @@ const CONFIG = {
 
   const cells = {};
   ['days', 'hours', 'mins', 'secs'].forEach(unit => {
-    const host = document.querySelector(`.alm-cell[data-unit="${unit}"]`);
+    const host = document.querySelector(`[data-unit="${unit}"]`);
     if (!host) return;
     cells[unit] = {
       host,
-      flip: host.querySelector('.alm-flip'),
-      faces: host.querySelectorAll('.alm-face'),
-      meter: host.querySelector('.alm-meter i'),
-      rot: 0,
+      digit: host.querySelector('.alm-digit'),
       value: null,
     };
   });
 
   let lastMinuteAnnounced = null;
 
+  // Cada cambio enciende la cifra como una vela: un único gesto, sin capas de más.
   function setCell(unit, str) {
     const cell = cells[unit];
     if (!cell || cell.value === str) return;
 
-    cell.rot += 180;
-    // Tras medio giro queda visible la cara opuesta: ahí se imprime el valor nuevo.
-    const incoming = (cell.rot / 180) % 2;
-    cell.faces[incoming].textContent = str;
-    cell.flip.style.transform = `rotateX(${cell.rot}deg)`;
+    cell.digit.textContent = str;
     cell.value = str;
 
     cell.host.classList.remove('struck');
@@ -270,13 +264,6 @@ const CONFIG = {
     const values = { days, hours, mins, secs };
     Object.entries(values).forEach(([unit, val]) => {
       setCell(unit, String(val).padStart(2, '0'));
-    });
-
-    // Cada medidor muestra el avance dentro de su propio ciclo.
-    const cycles = { days: days / 365, hours: hours / 24, mins: mins / 60, secs: secs / 60 };
-    Object.entries(cycles).forEach(([unit, ratio]) => {
-      const cell = cells[unit];
-      if (cell && cell.meter) cell.meter.style.width = `${Math.min(1, ratio) * 100}%`;
     });
 
     if (scale) {

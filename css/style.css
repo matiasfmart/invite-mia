@@ -780,110 +780,37 @@ h1, h2, h3 { font-family: var(--font-heading); font-weight: 400; font-optical-si
 
 .section-kicker { margin: 0 0 3px; font-family: var(--font-body); font-size: 1.02rem; font-style: italic; color: var(--color-gold-dark); }
 
-/* ---------------- Placa de marfil y oro: una sola pieza tallada, no tarjetas sueltas ---------------- */
+/* ---------------- La cuenta: números libres sobre el papel, sin caja que los encierre ---------------- */
 /* width relativo al 100% del contenedor (ya con su padding), no al viewport: así el auto-margin siempre centra */
-.almanac { position: relative; width: min(100%, 460px); margin: 22px auto 0; color: var(--ink); }
-
-/* Aura dorada que respira detrás de la placa: la luz de una vela sobre el oro. */
-.alm-halo {
-  position: absolute;
-  inset: -18px -10px;
-  z-index: -1;
-  border-radius: 16px;
-  background: radial-gradient(60% 75% at 50% 45%, rgba(185,154,97,0.4) 0%, rgba(185,154,97,0.16) 45%, rgba(185,154,97,0) 75%);
-  filter: blur(6px);
-  animation: alm-halo-breathe 4s ease-in-out infinite;
-}
-@keyframes alm-halo-breathe {
-  0%, 100% { opacity: 0.6; transform: scale(0.97); }
-  50% { opacity: 1; transform: scale(1.03); }
-}
-
-.alm-plaque {
-  position: relative;
-  padding: 16px clamp(10px, 3.5vw, 20px) 15px;
-  border-radius: 10px;
-  overflow: hidden;
-  /* Marfil brillante: el blanco domina y el pulido se nota en el degradado. */
-  background:
-    linear-gradient(157deg, #ffffff 0%, #fffefb 34%, #fdfaf3 62%, #fffdf8 100%);
-  border: 1.5px solid var(--color-gold);
-  box-shadow:
-    inset 0 1px 0 #ffffff,
-    inset 0 0 0 4px rgba(255,255,255,0.85),
-    inset 0 0 0 6px rgba(185,154,97,0.45),
-    0 2px 4px rgba(63,61,56,0.06),
-    0 4px 20px rgba(185,154,97,0.28),
-    0 14px 30px rgba(63,61,56,0.16);
-}
-
-/* El brillo recorre la placa: delata que es una superficie pulida y continua. */
-.alm-sheen {
-  position: absolute;
-  top: -60%; bottom: -60%;
-  left: -35%;
-  width: 32%;
-  pointer-events: none;
-  transform: rotate(14deg);
-  background: linear-gradient(90deg,
-    rgba(255,255,255,0) 0%,
-    rgba(255,255,255,0.85) 45%,
-    rgba(255,252,244,0.95) 55%,
-    rgba(255,255,255,0) 100%);
-}
-.almanac.in-view .alm-sheen { animation: alm-sheen 6.5s ease-in-out 1s infinite; }
-@keyframes alm-sheen {
-  0% { left: -35%; opacity: 0; }
-  12% { opacity: 1; }
-  55% { opacity: 1; }
-  70%, 100% { left: 105%; opacity: 0; }
-}
-
-/* Remaches dorados: fijan la placa y refuerzan que es un objeto, no un fondo. */
-.alm-rivet {
-  position: absolute;
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 32% 28%, #f6e8c6 0%, var(--color-gold) 48%, var(--color-gold-dark) 100%);
-  box-shadow: 0 1px 1px rgba(63,61,56,0.3), inset 0 -1px 1px rgba(255,255,255,0.5);
-}
-.alm-rivet--tl { top: 9px; left: 9px; }
-.alm-rivet--tr { top: 9px; right: 9px; }
-.alm-rivet--bl { bottom: 9px; left: 9px; }
-.alm-rivet--br { bottom: 9px; right: 9px; }
+.almanac { position: relative; width: min(100%, 460px); margin: 30px auto 0; color: var(--ink); }
 
 .alm-legend {
-  position: relative;
-  margin: 0 0 12px;
+  margin: 0 0 18px;
   font-family: var(--font-caps);
   font-size: clamp(0.54rem, 2.5vw, 0.66rem);
   letter-spacing: 0.2em;
-  white-space: nowrap;
   text-transform: uppercase;
   color: var(--color-gold-dark);
 }
-.alm-plaque .crown-icon.small { color: var(--color-gold-dark); margin-bottom: 6px; }
 
+/* Cuatro unidades, mismo peso: es el patrón universal de un contador y se lee sin esfuerzo. */
 .alm-row {
-  position: relative;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  gap: clamp(3px, 1.4vw, 9px);
+  gap: clamp(6px, 2.6vw, 16px);
 }
 
-/* Separadores tallados en la propia placa. */
+/* Un filete de oro separa cada cifra: basta para leerse como conjunto, sin encerrarlas. */
 .alm-sep {
   flex: 0 0 1px;
   align-self: stretch;
-  margin-top: 6px;
-  margin-bottom: 20px;
+  margin: 10px 0 24px;
   background: linear-gradient(180deg,
     rgba(185,154,97,0) 0%,
-    rgba(185,154,97,0.45) 30%,
-    rgba(185,154,97,0.45) 70%,
+    rgba(185,154,97,0.4) 30%,
+    rgba(185,154,97,0.4) 70%,
     rgba(185,154,97,0) 100%);
-  box-shadow: 1px 0 0 rgba(255,255,255,0.9);
 }
 
 .alm-cell {
@@ -892,76 +819,26 @@ h1, h2, h3 { font-family: var(--font-heading); font-weight: 400; font-optical-si
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   opacity: 0;
   transform: translateY(8px);
 }
 .almanac.in-view .alm-cell { animation: alm-rise 0.7s cubic-bezier(.2,.8,.25,1) forwards; }
-.almanac.in-view .alm-cell:nth-of-type(1) { animation-delay: 0.20s; }
-.almanac.in-view .alm-cell:nth-of-type(2) { animation-delay: 0.32s; }
-.almanac.in-view .alm-cell:nth-of-type(3) { animation-delay: 0.44s; }
-.almanac.in-view .alm-cell:nth-of-type(4) { animation-delay: 0.56s; }
+.almanac.in-view .alm-cell:nth-of-type(1) { animation-delay: 0.15s; }
+.almanac.in-view .alm-cell:nth-of-type(2) { animation-delay: 0.26s; }
+.almanac.in-view .alm-cell:nth-of-type(3) { animation-delay: 0.37s; }
+.almanac.in-view .alm-cell:nth-of-type(4) { animation-delay: 0.48s; }
 @keyframes alm-rise { to { opacity: 1; transform: translateY(0); } }
 
-/* Cavidad excavada en la placa: la cifra vive dentro, no encima. */
-.alm-well {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1 / 1.02;
-  border-radius: 6px;
-  perspective: 700px;
-  background: linear-gradient(180deg, #f4efe4 0%, #fcf9f2 55%, #ffffff 100%);
-  box-shadow:
-    inset 0 2px 3px rgba(63,61,56,0.22),
-    inset 0 -1px 0 rgba(255,255,255,0.95),
-    0 1px 0 rgba(255,255,255,0.9),
-    0 0 0 1px rgba(185,154,97,0.22),
-    0 0 10px rgba(185,154,97,0.22);
-  animation: alm-well-glow 3.4s ease-in-out infinite;
-}
-@keyframes alm-well-glow {
-  0%, 100% {
-    box-shadow:
-      inset 0 2px 3px rgba(63,61,56,0.22),
-      inset 0 -1px 0 rgba(255,255,255,0.95),
-      0 1px 0 rgba(255,255,255,0.9),
-      0 0 0 1px rgba(185,154,97,0.22),
-      0 0 8px rgba(185,154,97,0.18);
-  }
-  50% {
-    box-shadow:
-      inset 0 2px 3px rgba(63,61,56,0.22),
-      inset 0 -1px 0 rgba(255,255,255,0.95),
-      0 1px 0 rgba(255,255,255,0.9),
-      0 0 0 1px rgba(185,154,97,0.4),
-      0 0 14px rgba(185,154,97,0.4);
-  }
-}
-.alm-well::after {
-  content: '';
-  position: absolute; inset: 0;
-  border-radius: inherit;
-  box-shadow: inset 0 0 0 1px rgba(185,154,97,0.3);
-  pointer-events: none;
-}
-
-.alm-flip {
-  position: absolute;
-  inset: 3px;
-  transform-style: preserve-3d;
-  transition: transform 0.85s cubic-bezier(.2,.85,.25,1);
-}
-/* Las cifras en pan de oro: un brillo metálico recorre el número sin descanso. */
-.alm-face {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-display);
+/* Cifras en serif elegante, no manuscrita: las cuatro al mismo tamaño, el patrón que el ojo ya conoce. */
+.alm-digit {
+  display: block;
+  font-family: var(--font-gazette);
+  font-style: italic;
   font-weight: 700;
-  font-size: clamp(1.65rem, 8.3vw, 2.8rem);
-  line-height: 1;
-  background-color: #fffdf8;
+  font-size: clamp(1.6rem, 8.6vw, 2.9rem);
+  line-height: 1.15;
+  padding: 0 0.12em;
   background-image: linear-gradient(100deg, #7a5a24 0%, #b99a61 22%, #f8ecc9 48%, #b99a61 74%, #7a5a24 100%);
   background-size: 220% 100%;
   background-position: 0% 50%;
@@ -969,77 +846,33 @@ h1, h2, h3 { font-family: var(--font-heading); font-weight: 400; font-optical-si
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  border-radius: 4px;
-  box-shadow: 0 1px 2px rgba(63,61,56,0.1);
-  overflow: hidden;
   animation: alm-gold-shimmer 5s ease-in-out infinite;
+}
+/* Los segundos, mismo tamaño que sus vecinos: laten con un pulso sutil, no con un tamaño distinto. */
+.alm-digit--live {
+  animation: alm-gold-shimmer 5s ease-in-out infinite, alm-live-pulse 1.8s ease-in-out infinite;
+}
+@keyframes alm-live-pulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.22); }
 }
 @keyframes alm-gold-shimmer {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
-.alm-face--b { transform: rotateX(180deg); }
-/* Destello que recorre la cifra al voltear, como oro atrapando la luz. */
-.alm-face::before {
-  content: '';
-  position: absolute;
-  top: -40%; bottom: -40%;
-  left: -60%;
-  width: 40%;
-  background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,244,214,0.9) 50%, rgba(255,255,255,0) 100%);
-  transform: rotate(10deg);
-  opacity: 0;
-  pointer-events: none;
-}
-.alm-cell.struck .alm-face::before { animation: alm-glint 0.75s ease-out; }
-@keyframes alm-glint {
-  0% { left: -60%; opacity: 0; }
-  30% { opacity: 1; }
-  100% { left: 120%; opacity: 0; }
-}
-
-/* Al cambiar, la cavidad recibe un destello dorado desde dentro. */
-.alm-cell.struck .alm-well { animation: alm-strike 0.75s ease-out; }
-@keyframes alm-strike {
-  0% {
-    box-shadow:
-      inset 0 2px 3px rgba(63,61,56,0.22),
-      inset 0 0 14px rgba(185,154,97,0.75),
-      0 0 0 1px rgba(185,154,97,0.6),
-      0 0 18px rgba(185,154,97,0.7);
-  }
-  100% {
-    box-shadow:
-      inset 0 2px 3px rgba(63,61,56,0.22),
-      inset 0 0 14px rgba(185,154,97,0),
-      0 0 0 1px rgba(185,154,97,0.22),
-      0 0 8px rgba(185,154,97,0.18);
-  }
-}
-
-/* Cada cifra lleva su propio avance dentro de su ciclo. */
-.alm-meter {
-  display: block;
-  width: 82%;
-  height: 3px;
-  border-radius: 2px;
-  background: rgba(63,61,56,0.1);
-  box-shadow: inset 0 1px 1px rgba(63,61,56,0.16), 0 1px 0 rgba(255,255,255,0.9);
-  overflow: hidden;
-}
-.alm-meter i {
-  display: block;
-  height: 100%;
-  width: 0%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, var(--color-gold-dark), var(--color-gold) 60%, var(--color-gold-light));
-  transition: width 0.6s cubic-bezier(.2,.8,.3,1);
+/* Al cambiar, la cifra se enciende como una vela y se asienta: un único gesto, no un desfile de efectos. */
+.alm-cell.struck .alm-digit { animation: alm-digit-glow 0.6s ease-out; }
+@keyframes alm-digit-glow {
+  0% { filter: brightness(1) drop-shadow(0 0 0 rgba(185,154,97,0)); transform: translateY(0); }
+  35% { filter: brightness(1.9) drop-shadow(0 0 14px rgba(185,154,97,0.75)); transform: translateY(-3px); }
+  100% { filter: brightness(1) drop-shadow(0 0 0 rgba(185,154,97,0)); transform: translateY(0); }
 }
 
 .alm-label {
   font-family: var(--font-caps);
-  font-size: clamp(0.5rem, 2.2vw, 0.64rem);
-  letter-spacing: 0.16em;
+  font-size: clamp(0.5rem, 2vw, 0.72rem);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
   text-transform: uppercase;
   color: var(--ink-soft);
 }
@@ -1057,15 +890,16 @@ h1, h2, h3 { font-family: var(--font-heading); font-weight: 400; font-optical-si
 }
 @keyframes alm-live { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
 
-/* Escala general: avance hacia la velada, también hundida en la placa. */
+/* Única barra de avance: hacia la velada. */
 .alm-scale {
   position: relative;
-  height: 7px;
-  margin-top: 15px;
-  border-radius: 4px;
+  width: 70%;
+  max-width: 260px;
+  height: 2px;
+  margin: 26px auto 0;
+  border-radius: 2px;
   overflow: hidden;
-  background: rgba(63,61,56,0.07);
-  box-shadow: inset 0 1px 2px rgba(63,61,56,0.2), 0 1px 0 rgba(255,255,255,0.95);
+  background: rgba(63,61,56,0.12);
 }
 .alm-scale-fill {
   display: block;
@@ -1077,8 +911,7 @@ h1, h2, h3 { font-family: var(--font-heading); font-weight: 400; font-optical-si
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .alm-sheen, .alm-cell--live .alm-label::after, .alm-halo, .alm-well, .alm-face { animation: none; }
-  .alm-sheen { opacity: 0; }
+  .alm-cell--live .alm-label::after, .alm-digit, .alm-cell.struck .alm-digit { animation: none; }
   .alm-cell { opacity: 1; transform: none; }
 }
 

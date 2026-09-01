@@ -175,64 +175,37 @@
     <p class="section-kicker reveal">El baile se aproxima</p>
     <h2 class="section-title reveal">La cuenta de la temporada</h2>
     <div class="almanac reveal">
-      <span class="alm-halo" aria-hidden="true"></span>
-      <div class="alm-plaque">
-        <span class="alm-sheen" aria-hidden="true"></span>
-        <span class="alm-rivet alm-rivet--tl" aria-hidden="true"></span>
-        <span class="alm-rivet alm-rivet--tr" aria-hidden="true"></span>
-        <span class="alm-rivet alm-rivet--bl" aria-hidden="true"></span>
-        <span class="alm-rivet alm-rivet--br" aria-hidden="true"></span>
+      <p class="alm-legend">Restan para la velada</p>
 
-        <svg class="crown-icon small" viewBox="0 0 64 40" aria-hidden="true">
-          <path d="M4 36 L2 12 L16 22 L32 4 L48 22 L62 12 L60 36 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-          <circle cx="2" cy="10" r="3" fill="currentColor"/>
-          <circle cx="32" cy="3" r="3.4" fill="currentColor"/>
-          <circle cx="62" cy="10" r="3" fill="currentColor"/>
-        </svg>
-        <p class="alm-legend">Restan para la velada</p>
-
-        <div class="alm-row">
-          <div class="alm-cell" data-unit="days">
-            <div class="alm-well">
-              <div class="alm-flip"><span class="alm-face alm-face--a">00</span><span class="alm-face alm-face--b">00</span></div>
-            </div>
-            <span class="alm-meter"><i></i></span>
-            <span class="alm-label">Días</span>
-          </div>
-
-          <span class="alm-sep" aria-hidden="true"></span>
-
-          <div class="alm-cell" data-unit="hours">
-            <div class="alm-well">
-              <div class="alm-flip"><span class="alm-face alm-face--a">00</span><span class="alm-face alm-face--b">00</span></div>
-            </div>
-            <span class="alm-meter"><i></i></span>
-            <span class="alm-label">Horas</span>
-          </div>
-
-          <span class="alm-sep" aria-hidden="true"></span>
-
-          <div class="alm-cell" data-unit="mins">
-            <div class="alm-well">
-              <div class="alm-flip"><span class="alm-face alm-face--a">00</span><span class="alm-face alm-face--b">00</span></div>
-            </div>
-            <span class="alm-meter"><i></i></span>
-            <span class="alm-label">Minutos</span>
-          </div>
-
-          <span class="alm-sep" aria-hidden="true"></span>
-
-          <div class="alm-cell alm-cell--live" data-unit="secs">
-            <div class="alm-well">
-              <div class="alm-flip"><span class="alm-face alm-face--a">00</span><span class="alm-face alm-face--b">00</span></div>
-            </div>
-            <span class="alm-meter"><i></i></span>
-            <span class="alm-label">Segundos</span>
-          </div>
+      <div class="alm-row">
+        <div class="alm-cell" data-unit="days">
+          <span class="alm-digit">00</span>
+          <span class="alm-label">Días</span>
         </div>
 
-        <div class="alm-scale" aria-hidden="true"><span class="alm-scale-fill" id="alm-scale-fill"></span></div>
+        <span class="alm-sep" aria-hidden="true"></span>
+
+        <div class="alm-cell" data-unit="hours">
+          <span class="alm-digit">00</span>
+          <span class="alm-label">Horas</span>
+        </div>
+
+        <span class="alm-sep" aria-hidden="true"></span>
+
+        <div class="alm-cell" data-unit="mins">
+          <span class="alm-digit">00</span>
+          <span class="alm-label">Minutos</span>
+        </div>
+
+        <span class="alm-sep" aria-hidden="true"></span>
+
+        <div class="alm-cell alm-cell--live" data-unit="secs">
+          <span class="alm-digit alm-digit--live">00</span>
+          <span class="alm-label">Segundos</span>
+        </div>
       </div>
+
+      <div class="alm-scale" aria-hidden="true"><span class="alm-scale-fill" id="alm-scale-fill"></span></div>
 
       <p class="sr-only" id="countdown-live" role="timer" aria-live="polite"></p>
     </div>
