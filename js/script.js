@@ -471,7 +471,10 @@ const CONFIG = {
     card.setAttribute('aria-expanded', String(flipped));
     if (flipped) {
       const box = card.getBoundingClientRect();
-      window.spawnFloralBurst?.(box.left + box.width / 2, box.top + box.height / 2);
+      // Sincronizado con el punto más alto del giro (ver @keyframes oracle-flip).
+      setTimeout(() => {
+        window.spawnFloralBurst?.(box.left + box.width / 2, box.top + box.height / 2);
+      }, 420);
     }
   });
 })();

@@ -154,17 +154,48 @@
 
   <!-- ============ QUOTE ============ -->
   <section id="augurio" class="quote-section chapter" data-chapter="III" data-chapter-name="El augurio">
+    <span class="oracle-halo" aria-hidden="true"></span>
     <button class="oracle-card reveal" id="oracle-card" aria-expanded="false">
       <span class="oracle-card-inner">
         <span class="oracle-face oracle-front">
-          <span class="oracle-emblem">✦</span>
+          <svg class="corner corner-tl" viewBox="0 0 120 120"><use href="#ornament-corner"/></svg>
+          <svg class="corner corner-tr" viewBox="0 0 120 120"><use href="#ornament-corner"/></svg>
+          <svg class="corner corner-bl" viewBox="0 0 120 120"><use href="#ornament-corner"/></svg>
+          <svg class="corner corner-br" viewBox="0 0 120 120"><use href="#ornament-corner"/></svg>
+          <span class="oracle-clip" aria-hidden="true"><span class="oracle-sheen"></span></span>
+          <span class="oracle-medallion" aria-hidden="true">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1"/>
+              <circle cx="50" cy="50" r="37" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="1 3.4"/>
+              <path d="M50 12l4.5 13 13 4.5-13 4.5-4.5 13-4.5-13-13-4.5 13-4.5z"/>
+              <path d="M50 12l4.5 13 13 4.5-13 4.5-4.5 13-4.5-13-13-4.5 13-4.5z" transform="rotate(90 50 50)"/>
+              <path d="M50 12l4.5 13 13 4.5-13 4.5-4.5 13-4.5-13-13-4.5 13-4.5z" transform="rotate(180 50 50)"/>
+              <path d="M50 12l4.5 13 13 4.5-13 4.5-4.5 13-4.5-13-13-4.5 13-4.5z" transform="rotate(270 50 50)"/>
+              <circle cx="50" cy="16" r="2" fill="currentColor"/>
+              <circle cx="84" cy="50" r="2" fill="currentColor"/>
+              <circle cx="50" cy="84" r="2" fill="currentColor"/>
+              <circle cx="16" cy="50" r="2" fill="currentColor"/>
+              <circle cx="50" cy="50" r="5.5" fill="currentColor"/>
+            </svg>
+          </span>
           <span class="oracle-hint">Tocá la carta para revelar tu augurio</span>
         </span>
         <span class="oracle-face oracle-back">
+          <svg class="corner corner-tl" viewBox="0 0 120 120"><use href="#ornament-corner"/></svg>
+          <svg class="corner corner-tr" viewBox="0 0 120 120"><use href="#ornament-corner"/></svg>
+          <svg class="corner corner-bl" viewBox="0 0 120 120"><use href="#ornament-corner"/></svg>
+          <svg class="corner corner-br" viewBox="0 0 120 120"><use href="#ornament-corner"/></svg>
           <span class="ornate-divider-mini"><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg></span>
-          <span class="society-signature"><span class="write-on write-on-flow">Lady Whistledown informa<span class="quill-tip" aria-hidden="true">✒</span></span></span>
-          <span class="quote-text">“La temporada reserva una velada inolvidable:<br>una joven encantadora, música, flores y una celebración digna de recordar.”</span>
-          <span class="society-closing">Esperamos contar con vuestra distinguida presencia.</span>
+          <span class="oracle-message">
+            <span class="oracle-light-beam" aria-hidden="true"></span>
+            <span class="oracle-spark oracle-spark--1" aria-hidden="true"></span>
+            <span class="oracle-spark oracle-spark--2" aria-hidden="true"></span>
+            <span class="oracle-spark oracle-spark--3" aria-hidden="true"></span>
+            <span class="oracle-spark oracle-spark--4" aria-hidden="true"></span>
+            <span class="society-signature">Lady Whistledown informa<span class="oracle-flourish" aria-hidden="true">✒</span></span>
+            <span class="quote-text">“La temporada reserva una velada inolvidable:<br>una joven encantadora, música, flores y una celebración digna de recordar.”</span>
+            <span class="society-closing">Esperamos contar con vuestra distinguida presencia.</span>
+          </span>
         </span>
       </span>
     </button>
@@ -272,13 +303,23 @@
     <p class="section-kicker reveal">Una noche de gala</p>
     <h2 class="section-title reveal">El atuendo</h2>
     <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
-    <p class="reveal centered-text">Elegante formal. Una ocasión para vestirse con especial encanto.</p>
+    <p class="reveal centered-text">Elegante formal. Una velada para vestir con tu mejor encanto.</p>
+
+    <p class="reserved-label reveal">
+      <svg class="crown-icon small" viewBox="0 0 64 40" aria-hidden="true">
+        <path d="M4 36 L2 12 L16 22 L32 4 L48 22 L62 12 L60 36 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <circle cx="2" cy="10" r="3" fill="currentColor"/>
+        <circle cx="32" cy="3" r="3.4" fill="currentColor"/>
+        <circle cx="62" cy="10" r="3" fill="currentColor"/>
+      </svg>
+      <span>Colores reservados para Mia</span>
+    </p>
     <div class="palette-row print-frame reveal">
-      <div class="swatch" style="--sw:#D8B7B4"><span>Rosa Antiguo</span></div>
-      <div class="swatch" style="--sw:#B99A61"><span>Dorado</span></div>
-      <div class="swatch" style="--sw:#FFFDFB"><span>Blanco</span></div>
+      <div class="swatch" style="--sw:#D8B7B4; --shine:#fff3ee"><span class="swatch-circle"><span class="swatch-core"></span><span class="swatch-shine"></span></span><span class="swatch-label">Rosa Antiguo</span></div>
+      <div class="swatch" style="--sw:#B99A61; --shine:#fff2c4"><span class="swatch-circle"><span class="swatch-core"></span><span class="swatch-shine"></span></span><span class="swatch-label">Dorado</span></div>
+      <div class="swatch" style="--sw:#FFFDFB; --shine:#e9defc"><span class="swatch-circle"><span class="swatch-core"></span><span class="swatch-shine"></span></span><span class="swatch-label">Blanco</span></div>
     </div>
-    <p class="reveal centered-text small-note">El rosa viejo ha sido reservado para la protagonista de la velada.</p>
+    <p class="reveal centered-text small-note">Te pedimos evitar estos tres tonos esa noche — el resto de la paleta es toda tuya.</p>
   </section>
 
   <!-- ============ GALERÍA ============ -->
