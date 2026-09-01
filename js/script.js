@@ -24,6 +24,7 @@ const CONFIG = {
     seal.classList.add('rippling');
     envelope.classList.add('opening');
     window.startInvitationMusic?.();
+    window.enableGyroTilt?.();
     const box = seal.getBoundingClientRect();
     window.spawnFloralBurst?.(box.left + box.width / 2, box.top + box.height / 2);
     document.body.style.overflow = 'hidden';
@@ -31,7 +32,7 @@ const CONFIG = {
       screen.classList.add('hidden');
       document.body.style.overflow = '';
       document.body.classList.add('invitation-open');
-    }, 1300);
+    }, 1700);
   });
 })();
 
@@ -189,7 +190,7 @@ const CONFIG = {
         observer.unobserve(entry.target);
         // Mobile has no hover, so preview the card's 3D depth automatically once.
         if (entry.target.classList.contains('gazette-sheet')) {
-          setTimeout(() => entry.target.classList.add('tilt-preview'), 900);
+          setTimeout(() => entry.target.classList.add('tilt-preview'), 1150);
         }
       }
     });
@@ -216,7 +217,7 @@ const CONFIG = {
         setTimeout(() => {
           window.spawnFloralBurst?.(box.left + 12, box.top + 2);
           window.spawnFloralBurst?.(box.left + box.width - 12, box.top + 2);
-        }, 250);
+        }, 610);
       }
     });
   }, { threshold: 0.1 });
@@ -231,6 +232,59 @@ const CONFIG = {
     });
   }, { threshold: 0, rootMargin: '-45% 0px -45% 0px' });
   chapters.forEach(ch => markerObserver.observe(ch));
+})();
+
+// ==========================================================================
+// GYROSCOPE TILT (mobile-first): la mayoría de quienes abran esta invitación
+// lo harán desde el celular, sin mouse — el tilt por puntero nunca se veía
+// para ellos, solo el pulso de un toque. Inclinar el teléfono ahora inclina
+// las tarjetas de verdad, como mirar a través de un cristal biselado.
+// ==========================================================================
+(function gyroTilt() {
+  const items = document.querySelectorAll('.royal-card, .gallery-frame, .gazette-sheet');
+  if (!items.length || typeof window.DeviceOrientationEvent === 'undefined') return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let baseBeta = null;
+  let baseGamma = null;
+  let ticking = false;
+  let latest = null;
+
+  function apply() {
+    ticking = false;
+    if (!latest || latest.beta === null || latest.gamma === null) return;
+    if (baseBeta === null) { baseBeta = latest.beta; baseGamma = latest.gamma; }
+    const dx = Math.max(-1, Math.min(1, (latest.gamma - baseGamma) / 22));
+    const dy = Math.max(-1, Math.min(1, (latest.beta - baseBeta) / 22));
+    items.forEach(item => {
+      const rect = item.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return; // solo lo que está en pantalla
+      item.style.transform = `perspective(700px) rotateY(${dx * 9}deg) rotateX(${-dy * 9}deg) translateY(-3px)`;
+    });
+  }
+
+  function onOrientation(e) {
+    latest = e;
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(apply);
+  }
+
+  function start() {
+    window.addEventListener('deviceorientation', onOrientation);
+  }
+
+  // iOS 13+ exige permiso explícito, y solo se puede pedir dentro de un gesto del usuario:
+  // se dispara desde el sello de lacre, el primer toque garantizado de la visita.
+  window.enableGyroTilt = function enableGyroTilt() {
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      DeviceOrientationEvent.requestPermission().then(state => {
+        if (state === 'granted') start();
+      }).catch(() => {});
+    } else {
+      start();
+    }
+  };
 })();
 
 // ==========================================================================
@@ -516,7 +570,7 @@ const CONFIG = {
       // Sincronizado con el punto más alto del giro (ver @keyframes oracle-flip).
       setTimeout(() => {
         window.spawnFloralBurst?.(box.left + box.width / 2, box.top + box.height / 2);
-      }, 420);
+      }, 590);
     }
   });
 })();
@@ -527,11 +581,72 @@ const CONFIG = {
 (function music() {
   const btn = document.getElementById('music-toggle');
   const audio = document.getElementById('bg-music');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let audioContext;
+  let analyser;
+  let frequencyData;
+  let animationFrame;
+  let smoothedLevel = 0;
+
+  function setPulseStyles(level) {
+    const root = document.documentElement.style;
+    root.setProperty('--music-pulse', level.toFixed(3));
+    root.setProperty('--music-divider-opacity', (0.7 + level * 0.3).toFixed(3));
+    root.setProperty('--music-glow-size', `${(level * 8).toFixed(2)}px`);
+    root.setProperty('--music-scale', (1 + level * 0.045).toFixed(3));
+    root.setProperty('--music-shadow-size', `${(20 + level * 12).toFixed(2)}px`);
+    root.setProperty('--music-shadow-opacity', (0.35 + level * 0.2).toFixed(3));
+  }
+
+  function stopReactivePulse() {
+    cancelAnimationFrame(animationFrame);
+    animationFrame = undefined;
+    smoothedLevel = 0;
+    setPulseStyles(0);
+    document.body.classList.remove('music-reactive');
+  }
+
+  function updateReactivePulse() {
+    analyser.getByteFrequencyData(frequencyData);
+    const sampleSize = Math.max(1, Math.floor(frequencyData.length * 0.18));
+    let total = 0;
+    for (let index = 0; index < sampleSize; index += 1) total += frequencyData[index];
+
+    const level = Math.min(1, (total / sampleSize / 255) * 2.2);
+    smoothedLevel += (level - smoothedLevel) * 0.12;
+    setPulseStyles(smoothedLevel);
+    animationFrame = requestAnimationFrame(updateReactivePulse);
+  }
+
+  function startReactivePulse() {
+    if (reduceMotion.matches || !window.AudioContext && !window.webkitAudioContext) return;
+
+    try {
+      if (!audioContext) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioContext = new AudioContext();
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 128;
+        frequencyData = new Uint8Array(analyser.frequencyBinCount);
+        const source = audioContext.createMediaElementSource(audio);
+        source.connect(analyser);
+        analyser.connect(audioContext.destination);
+      }
+
+      audioContext.resume();
+      document.body.classList.add('music-reactive');
+      if (!animationFrame) updateReactivePulse();
+    } catch {
+      stopReactivePulse();
+    }
+  }
 
   function start() {
+    startReactivePulse();
     return audio.play()
       .then(() => btn.classList.add('playing'))
       .catch(() => {
+        stopReactivePulse();
         btn.classList.remove('playing');
         console.warn('Agregá un archivo de audio en assets/music/song.mp3 para habilitar la música.');
       });
@@ -547,6 +662,12 @@ const CONFIG = {
       audio.pause();
       btn.classList.remove('playing');
     }
+  });
+
+  audio.addEventListener('pause', stopReactivePulse);
+  audio.addEventListener('ended', stopReactivePulse);
+  reduceMotion.addEventListener('change', ({ matches }) => {
+    if (matches) stopReactivePulse();
   });
 })();
 
@@ -637,7 +758,7 @@ const CONFIG = {
       submitBtn.disabled = false;
       submitBtn.classList.remove('sending');
       submitBtn.textContent = originalLabel;
-    }, 700);
+    }, 900);
   });
 })();
 
