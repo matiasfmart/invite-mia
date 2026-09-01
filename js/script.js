@@ -211,6 +211,12 @@ const CONFIG = {
       if (entry.isIntersecting) {
         entry.target.classList.add('in-view');
         turnObserver.unobserve(entry.target);
+        // Un destello dorado en cada punta del filete, justo cuando se traza.
+        const box = entry.target.getBoundingClientRect();
+        setTimeout(() => {
+          window.spawnFloralBurst?.(box.left + 12, box.top + 2);
+          window.spawnFloralBurst?.(box.left + box.width - 12, box.top + 2);
+        }, 250);
       }
     });
   }, { threshold: 0.1 });

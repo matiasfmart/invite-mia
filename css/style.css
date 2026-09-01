@@ -37,20 +37,24 @@
 
 * { box-sizing: border-box; }
 
-.chapter { position: relative; scroll-snap-align: start; scroll-snap-stop: normal; }
+.chapter { position: relative; }
+/* Cada capítulo se anuncia con un filete de oro que se traza de punta a punta —
+   un heraldo, no una sombra. Antes esto era un velo diagonal oscuro: eso era
+   el "sombreado raro" que se sentía mal al recorrer la página. */
 .chapter::before {
   content: '';
   position: absolute;
-  inset: 0;
+  top: 0; left: 0; right: 0;
+  height: 3px;
   z-index: 5;
   pointer-events: none;
-  background: linear-gradient(115deg, rgba(43,27,31,0.4) 0%, rgba(43,27,31,0.12) 30%, transparent 55%);
-  clip-path: polygon(0 0, 40% 0, 8% 100%, 0 100%);
-  opacity: 1;
-  transform: translateX(-6%);
-  transition: opacity 1.1s ease, transform 1.1s cubic-bezier(.2,.7,.2,1);
+  background: linear-gradient(90deg, transparent, var(--color-gold-dark) 20%, var(--color-gold-light) 50%, var(--color-gold-dark) 80%, transparent);
+  box-shadow: 0 0 10px 1px rgba(185,154,97,0.55);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.9s cubic-bezier(.2,.8,.2,1);
 }
-.chapter.in-view::before { opacity: 0; transform: translateX(0); }
+.chapter.in-view::before { transform: scaleX(1); }
 
 .chapter-marker {
   position: fixed;
@@ -78,7 +82,9 @@
 }
 
 /* La barra nativa no debe robar ancho de pantalla en un diseño mobile-first. */
-html { scroll-behavior: smooth; scroll-snap-type: y proximity; scrollbar-width: none; }
+/* Sin scroll-snap: en mobile, "atrapar" el scroll entre secciones de alturas dispares
+   es lo que se sentía incómodo — pelea contra el impulso natural del dedo. */
+html { scroll-behavior: smooth; scrollbar-width: none; }
 html::-webkit-scrollbar { width: 0; height: 0; display: none; }
 
 body {
