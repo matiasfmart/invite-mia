@@ -128,17 +128,53 @@ const CONFIG = {
   links.forEach(link => link.addEventListener('click', closeMenu));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
 
-  window.addEventListener('scroll', () => {
+  // La cadena de capítulos: una cuenta de dije por capítulo, que se enciende
+  // al pasarlo. Su posición se calcula una sola vez (y al cambiar el tamaño),
+  // nunca dentro del scroll — leer el layout en cada evento es lo que
+  // generaba el sombreado tembloroso al recorrer la página.
+  const ribbonTrack = document.querySelector('.ribbon-progress');
+  const beads = [];
+  function layoutChapters() {
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
-    ribbonFill.style.height = `${progress * 100}%`;
+    sections.forEach((sec, i) => {
+      if (!sec) return;
+      const pct = scrollable > 0 ? Math.min(100, (sec.offsetTop / scrollable) * 100) : 0;
+      if (!beads[i]) {
+        const bead = document.createElement('span');
+        bead.className = 'ribbon-bead';
+        ribbonTrack.appendChild(bead);
+        beads[i] = bead;
+      }
+      beads[i].style.top = `${pct}%`;
+      beads[i].dataset.pct = pct;
+    });
+  }
+  layoutChapters();
+  window.addEventListener('resize', layoutChapters);
+
+  // Un único cálculo por fotograma (rAF), solo lecturas ya disponibles
+  // (scrollY, scrollHeight): nada de "getBoundingClientRect" por capítulo.
+  let ticking = false;
+  function updateOnScroll() {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const progressPct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+    ribbonFill.style.height = `${progressPct}%`;
 
     let currentIndex = -1;
-    sections.forEach((sec, i) => {
-      if (sec && sec.getBoundingClientRect().top <= 140) currentIndex = i;
+    beads.forEach((bead, i) => {
+      const lit = progressPct >= Number(bead.dataset.pct) - 2;
+      bead.classList.toggle('lit', lit);
+      if (lit) currentIndex = i;
     });
     links.forEach((a, i) => a.classList.toggle('active', i === currentIndex));
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(updateOnScroll);
   }, { passive: true });
+  updateOnScroll();
 })();
 
 // ==========================================================================
