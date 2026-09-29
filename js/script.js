@@ -14,12 +14,25 @@ const CONFIG = {
   const screen = document.getElementById('envelope-screen');
   const envelope = document.getElementById('envelope');
   const seal = document.getElementById('wax-seal');
+  const root = document.documentElement;
+
+  function resetToStart() {
+    const previousBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    window.scrollTo(0, 0);
+    requestAnimationFrame(() => { root.style.scrollBehavior = previousBehavior; });
+  }
+
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  resetToStart();
+  window.addEventListener('pageshow', resetToStart, { once: true });
 
   seal.addEventListener('pointerdown', () => seal.classList.add('pressing'));
   seal.addEventListener('pointerup', () => seal.classList.remove('pressing'));
   seal.addEventListener('pointercancel', () => seal.classList.remove('pressing'));
 
   seal.addEventListener('click', () => {
+    resetToStart();
     seal.classList.remove('pressing');
     seal.classList.add('rippling');
     envelope.classList.add('opening');
@@ -27,10 +40,11 @@ const CONFIG = {
     window.spawnFloralBurst?.(box.left + box.width / 2, box.top + box.height / 2);
     document.body.style.overflow = 'hidden';
     setTimeout(() => {
+      resetToStart();
       screen.classList.add('hidden');
       document.body.style.overflow = '';
       document.body.classList.add('invitation-open');
-    }, 1300);
+    }, 2000);
   });
 })();
 
@@ -53,7 +67,7 @@ const CONFIG = {
 // mouse gets a smooth continuous follow — same listeners for both)
 // ==========================================================================
 (function tiltOnPointer() {
-  const items = document.querySelectorAll('.royal-card, .gallery-frame, .gazette-sheet');
+  const items = document.querySelectorAll('.royal-card, .gallery-frame, .welcome-portrait');
   const applyTilt = (item, clientX, clientY) => {
     const box = item.getBoundingClientRect();
     const px = (clientX - box.left) / box.width - 0.5;
@@ -150,10 +164,6 @@ const CONFIG = {
       if (entry.isIntersecting) {
         entry.target.classList.add('in-view');
         observer.unobserve(entry.target);
-        // Mobile has no hover, so preview the card's 3D depth automatically once.
-        if (entry.target.classList.contains('gazette-sheet')) {
-          setTimeout(() => entry.target.classList.add('tilt-preview'), 900);
-        }
       }
     });
   }, { threshold: 0.15 });
@@ -182,7 +192,7 @@ const CONFIG = {
   const markerObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        markerNum.textContent = `Edición N.\u00b0 ${entry.target.dataset.chapter}`;
+        markerNum.textContent = `Capítulo ${entry.target.dataset.chapter}`;
         markerName.textContent = entry.target.dataset.chapterName;
       }
     });
@@ -220,13 +230,29 @@ const CONFIG = {
 // ==========================================================================
 (function countdown() {
   const target = new Date(CONFIG.eventDate).getTime();
-  const els = {
-    days: document.getElementById('cd-days'),
-    hours: document.getElementById('cd-hours'),
-    mins: document.getElementById('cd-mins'),
-    secs: document.getElementById('cd-secs'),
-  };
-  let prev = {};
+  const live = document.getElementById('countdown-live');
+  const scale = document.getElementById('alm-scale-fill');
+  const labels = { days: 'días', hours: 'horas', mins: 'minutos' };
+  const windowMs = 365 * 86400000;
+  const cells = {};
+
+  ['days', 'hours', 'mins', 'secs'].forEach(unit => {
+    const host = document.querySelector(`[data-unit="${unit}"]`);
+    if (!host) return;
+    cells[unit] = { host, digit: host.querySelector('.alm-digit'), value: null };
+  });
+
+  let lastMinuteAnnounced = null;
+
+  function setCell(unit, value) {
+    const cell = cells[unit];
+    if (!cell || cell.value === value) return;
+    cell.digit.textContent = value;
+    cell.value = value;
+    cell.host.classList.remove('struck');
+    void cell.host.offsetWidth;
+    cell.host.classList.add('struck');
+  }
 
   function tick() {
     const diff = Math.max(0, target - Date.now());
@@ -236,20 +262,19 @@ const CONFIG = {
     const secs = Math.floor((diff % 60000) / 1000);
 
     const values = { days, hours, mins, secs };
-    Object.entries(values).forEach(([key, val]) => {
-      const str = String(val).padStart(2, '0');
-      if (prev[key] !== str) {
-        els[key].textContent = str;
-        els[key].classList.remove('tick');
-        void els[key].offsetWidth; // restart animation
-        els[key].classList.add('tick');
-        const box = els[key].closest('.countdown-box');
-        box.classList.remove('impact');
-        void box.offsetWidth;
-        box.classList.add('impact');
-        prev[key] = str;
-      }
+    Object.entries(values).forEach(([unit, value]) => {
+      setCell(unit, String(value).padStart(2, '0'));
     });
+
+    if (scale) {
+      const elapsed = Math.min(1, Math.max(0, 1 - diff / windowMs));
+      scale.style.width = `${elapsed * 100}%`;
+    }
+
+    if (live && mins !== lastMinuteAnnounced) {
+      lastMinuteAnnounced = mins;
+      live.textContent = `Faltan ${days} ${labels.days}, ${hours} ${labels.hours} y ${mins} ${labels.mins}.`;
+    }
   }
   tick();
   setInterval(tick, 1000);
@@ -282,7 +307,7 @@ const CONFIG = {
       rotation: Math.random() * Math.PI * 2,
       rotSpeed: (Math.random() - 0.5) * 0.02,
       opacity: 0.26 + Math.random() * 0.32,
-      color: Math.random() > 0.35 ? '216,183,180' : '238,218,183',
+      color: Math.random() > 0.28 ? '158,27,34' : '107,15,22',
     };
   }
 
@@ -304,15 +329,10 @@ const CONFIG = {
     ctx.translate(p.x, p.y);
     ctx.rotate(p.rotation);
     ctx.fillStyle = `rgba(${p.color},${p.opacity})`;
-    for (let index = 0; index < 5; index++) {
-      ctx.rotate((Math.PI * 2) / 5);
-      ctx.beginPath();
-      ctx.ellipse(0, -p.size / 2, p.size * 0.42, p.size * 0.72, 0, 0, Math.PI * 2);
-      ctx.fill();
-    }
     ctx.beginPath();
-    ctx.fillStyle = `rgba(185,154,97,${Math.min(0.7, p.opacity + 0.2)})`;
-    ctx.arc(0, 0, p.size * 0.2, 0, Math.PI * 2);
+    ctx.moveTo(0, -p.size);
+    ctx.bezierCurveTo(p.size, -p.size * 0.4, p.size * 0.75, p.size * 0.72, 0, p.size);
+    ctx.bezierCurveTo(-p.size * 0.75, p.size * 0.72, -p.size, -p.size * 0.4, 0, -p.size);
     ctx.fill();
     ctx.restore();
   }
@@ -335,7 +355,7 @@ const CONFIG = {
         rotSpeed: (Math.random() - 0.5) * 0.12,
         life: 0,
         maxLife: 46 + Math.random() * 20,
-        color: Math.random() > 0.4 ? '216,183,180' : '185,154,97',
+        color: Math.random() > 0.2 ? '158,27,34' : '107,15,22',
       });
     }
   }
@@ -375,7 +395,7 @@ const CONFIG = {
       const twinkle = 0.15 + (Math.sin(m.phase) + 1) / 2 * 0.35;
       ctx.save();
       ctx.globalAlpha = twinkle;
-      ctx.fillStyle = '#e6cf8f';
+      ctx.fillStyle = '#d4af37';
       ctx.beginPath();
       ctx.arc(m.x, m.y, m.size, 0, Math.PI * 2);
       ctx.fill();
@@ -408,7 +428,7 @@ const CONFIG = {
       const fade = Math.max(0, 1 - p.life / p.maxLife);
       ctx.save();
       ctx.globalAlpha = fade;
-      ctx.fillStyle = '#dfcf9a';
+      ctx.fillStyle = '#d4af37';
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
       ctx.fill();
@@ -540,7 +560,7 @@ const CONFIG = {
     const message = document.getElementById('rsvp-message').value.trim();
 
     const text = [
-      `👑 Confirmación Quince Años de Mia 👑`,
+      `Confirmación Quince Años de Mia`,
       `Nombre: ${name}`,
       `Asistencia: ${attend}`,
       `Invitados: ${guests}`,
@@ -549,7 +569,7 @@ const CONFIG = {
 
     submitBtn.disabled = true;
     submitBtn.classList.add('sending');
-    submitBtn.textContent = 'Enviando…';
+    submitBtn.textContent = 'Enviando...';
 
     const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
     setTimeout(() => {
@@ -571,7 +591,7 @@ function fireConfetti() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  const colors = ['#B99A61', '#D8B7B4', '#BD8F92', '#FFFDFB', '#DFCFaa'];
+  const colors = ['#D4AF37', '#B8963E', '#9E1B22', '#F5EFE1', '#6F7450'];
   const pieces = Array.from({ length: 140 }, () => ({
     x: canvas.width / 2,
     y: canvas.height / 2,

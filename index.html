@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Mis Quince Años · Mia</title>
-<meta name="description" content="Invitación a los Quince Años de Mia Princesa Eluney Martinez · 30 de Octubre de 2026 · Olmos Recepciones">
+<title>Mis Quince Años &middot; Mia</title>
+<meta name="description" content="Invitación a los Quince Años de Mia Princesa Eluney Martinez - 30 de Octubre de 2026 - Olmos Recepciones">
 
 <!-- Open Graph -->
-<meta property="og:title" content="Mis Quince Años · Mia">
-<meta property="og:description" content="Te invito a celebrar mis Quince Años · 30 de Octubre de 2026">
+<meta property="og:title" content="Mis Quince Años &middot; Mia">
+<meta property="og:description" content="Te invito a celebrar mis Quince Años - 30 de Octubre de 2026">
 <meta property="og:type" content="website">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23fcf8f0'/%3E%3Cg transform='translate(0,13)'%3E%3Cpath d='M4 34 L2 12 L16 21 L32 4 L48 21 L62 12 L60 34 Z' fill='none' stroke='%23b99a61' stroke-width='3' stroke-linejoin='round'/%3E%3Ccircle cx='2' cy='10' r='3' fill='%23b99a61'/%3E%3Ccircle cx='32' cy='3' r='3.4' fill='%23b99a61'/%3E%3Ccircle cx='62' cy='10' r='3' fill='%23b99a61'/%3E%3C/g%3E%3C/svg%3E">
@@ -26,25 +26,26 @@
 
 <!-- ============ CHAPTER MARKER ============ -->
 <div class="chapter-marker" id="chapter-marker" aria-hidden="true">
-  <span class="chapter-marker-num" id="chapter-marker-num">Edición N.° I</span>
+  <span class="chapter-marker-num" id="chapter-marker-num">Capítulo I</span>
   <span class="chapter-marker-name" id="chapter-marker-name">El anuncio</span>
 </div>
 
-<!-- ============ SOBRE / ENVELOPE INTRO ============ -->
+<!-- ============ STORYBOOK INTRO ============ -->
 <div id="envelope-screen" aria-label="Pantalla de apertura de invitación">
   <div class="envelope-wrap">
-    <p class="society-paper">Gaceta de la alta sociedad</p>
-    <p class="envelope-hint">Tocá el sello para abrir tu invitación</p>
-    <div class="envelope" id="envelope">
+    <p class="society-paper">Érase una vez una noche encantada</p>
+    <p class="envelope-hint">Tocá la llave para abrir el libro</p>
+    <div class="envelope storybook" id="envelope">
       <div class="envelope-back"></div>
       <div class="envelope-letter">
-        <span class="letter-monogram">M</span>
+        <svg class="book-rose" viewBox="0 0 64 64" aria-hidden="true"><use href="#enchanted-rose-icon"/></svg>
+        <span class="letter-monogram">Mis XV</span>
         <span class="letter-line">Mia</span>
-        <span class="letter-line small">cumple Quince</span>
+        <span class="letter-line small">30 &middot; 10 &middot; 2026</span>
       </div>
       <div class="envelope-flap"></div>
-      <button class="wax-seal" id="wax-seal" aria-label="Abrir invitación">
-        <span>M</span>
+      <button class="wax-seal golden-key" id="wax-seal" aria-label="Abrir el libro de la invitación">
+        <svg viewBox="0 0 80 32" aria-hidden="true"><circle cx="15" cy="16" r="9"/><circle cx="15" cy="16" r="4"/><path d="M24 16h42l7-7M56 16v8M64 16v6"/></svg>
       </button>
     </div>
   </div>
@@ -56,12 +57,12 @@
 </div>
 
 <div class="nav-scrim" id="nav-scrim"></div>
-<button class="nav-tab" id="nav-tab" type="button" aria-label="Abrir tarjeta de baile" aria-controls="nav-card" aria-expanded="false">
-  <span>Tarjeta de baile</span>
+<button class="nav-tab" id="nav-tab" type="button" aria-label="Abrir índice del libro" aria-controls="nav-card" aria-expanded="false">
+  <span>Índice del libro</span>
 </button>
 <div class="nav-card" id="nav-card" aria-hidden="true">
   <div class="nav-card-inner">
-    <p class="nav-card-title">Programa de la Velada</p>
+    <p class="nav-card-title">Capítulos del cuento</p>
     <p class="nav-card-subtitle">Toque cada capítulo para asistir</p>
     <div class="nav-card-rule"></div>
     <ol class="nav-card-list" id="nav-card-list"></ol>
@@ -87,15 +88,10 @@
       <svg class="corner corner-bl" viewBox="0 0 120 120"><use href="#ornament-corner"/></svg>
       <svg class="corner corner-br" viewBox="0 0 120 120"><use href="#ornament-corner"/></svg>
 
-      <p class="hero-eyebrow reveal">Querido y gentil lector:</p>
+      <p class="hero-eyebrow reveal">Una historia está por comenzar:</p>
       <p class="society-intro reveal">La familia Martínez tiene el honor de anunciar el acontecimiento más encantador de la temporada.</p>
 
-      <svg class="crown-icon reveal" viewBox="0 0 64 40" aria-hidden="true">
-        <path d="M4 36 L2 12 L16 22 L32 4 L48 22 L62 12 L60 36 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-        <circle cx="2" cy="10" r="3" fill="currentColor"/>
-        <circle cx="32" cy="3" r="3.4" fill="currentColor"/>
-        <circle cx="62" cy="10" r="3" fill="currentColor"/>
-      </svg>
+      <svg class="crown-icon reveal" viewBox="0 0 64 64" aria-hidden="true"><use href="#enchanted-rose-icon"/></svg>
 
       <h1 class="hero-title reveal">
         <span class="hero-title-sub">Mis Quince Años</span>
@@ -103,41 +99,35 @@
         <span class="hero-fullname">Mia Princesa Eluney Martinez</span>
       </h1>
 
-      <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
+      <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 64 32"><use href="#rose-divider"/></svg><span></span></div>
 
-      <p class="hero-date reveal">30 de Octubre · 2026</p>
-      <p class="hero-place reveal">Olmos Recepciones — Villa San Andrés, Buenos Aires</p>
+      <p class="hero-date reveal">30 de Octubre &middot; 2026</p>
+      <p class="hero-place reveal">Olmos Recepciones &mdash; Villa San Andrés, Buenos Aires</p>
 
-      <a href="#detalles" class="btn btn-ghost reveal scroll-cta">Descubrir invitación ↓</a>
+      <a href="#detalles" class="btn btn-ghost reveal scroll-cta">Descubrir invitación &darr;</a>
     </div>
   </section>
 
-  <!-- ============ SOCIETY GAZETTE ============ -->
-  <section id="gazette" class="society-gazette chapter" data-chapter="II" data-chapter-name="La crónica" aria-labelledby="gazette-title">
-    <article class="gazette-sheet reveal">
-      <header class="gazette-header">
-        <div class="gazette-portrait" aria-hidden="true">
-          <img src="assets/gallery/Lady-Whistledown-Elegant-Monogram-PNG.png" alt="">
-        </div>
-        <p class="gazette-name">Lady Whistledown's</p>
-        <h2 id="gazette-title">Society Papers</h2>
+  <!-- ============ BALLROOM WELCOME ============ -->
+  <section id="gazette" class="welcome-section chapter" data-chapter="II" data-chapter-name="La bienvenida" aria-labelledby="welcome-title">
+    <div class="welcome-stage reveal">
+      <header class="welcome-heading">
+        <p class="section-kicker">El castillo abre sus puertas</p>
+        <h2 id="welcome-title">Bienvenidos a mi noche encantada</h2>
       </header>
-      <p class="gazette-edition">Personas extraordinarias, noticias extraordinarias</p>
-      <div class="gazette-columns">
-        <div>
-          <h3>Querido y gentil lector,</h3>
-          <p>Ha llegado a nuestros oídos que se prepara una celebración de lo más encantadora. Mia Princesa Eluney Martinez cumple quince años y la ocasión merece una nota en cada conversación de la temporada.</p>
-          <p>La noche del 30 de octubre, un salón se vestirá de flores, música y buenos deseos para acompañar a la joven protagonista en este capítulo inolvidable.</p>
-        </div>
-        <div>
-          <h3>Una velada por recordar</h3>
-          <p>Se espera a los invitados con su mejor encanto, listos para brindar, bailar y guardar recuerdos de una noche que promete ser verdaderamente especial.</p>
-          <p class="gazette-signoff">Con toda consideración,<br><span>Lady Whistledown</span></p>
-        </div>
+      <figure class="welcome-portrait">
+        <img src="assets/gallery/foto1.jpg" alt="Retrato de Mia" onerror="this.closest('.welcome-portrait').classList.add('placeholder')">
+        <figcaption>Mia &middot; La protagonista de esta historia</figcaption>
+      </figure>
+      <div class="welcome-message">
+        <svg class="welcome-rose" viewBox="0 0 64 64" aria-hidden="true"><use href="#enchanted-rose-icon"/></svg>
+        <h3>Una velada por recordar</h3>
+        <p>Mia Princesa Eluney Martinez cumple quince años y desea compartir este capítulo inolvidable junto a quienes más quiere.</p>
+        <p>La noche del 30 de octubre, el salón se vestirá de rosas, música y buenos deseos.</p>
+        <p>Los esperamos para brindar, bailar y guardar recuerdos de una celebración verdaderamente especial.</p>
+        <p class="welcome-date">Mia &middot; Quince Años &middot; 30 de Octubre de 2026</p>
       </div>
-      <div class="gazette-dateline">Mia · Quince Años · 30 de Octubre de 2026</div>
-    </article>
-    </article>
+    </div>
   </section>
 
   <!-- ============ QUOTE ============ -->
@@ -145,13 +135,13 @@
     <button class="oracle-card reveal" id="oracle-card" aria-expanded="false">
       <span class="oracle-card-inner">
         <span class="oracle-face oracle-front">
-          <span class="oracle-emblem">✦</span>
+          <span class="oracle-emblem"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#enchanted-rose-icon"/></svg></span>
           <span class="oracle-hint">Tocá la carta para revelar tu augurio</span>
         </span>
         <span class="oracle-face oracle-back">
-          <span class="ornate-divider-mini"><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg></span>
-          <span class="society-signature"><span class="write-on write-on-flow">Lady Whistledown informa<span class="quill-tip" aria-hidden="true">✒</span></span></span>
-          <span class="quote-text">“La temporada reserva una velada inolvidable:<br>una joven encantadora, música, flores y una celebración digna de recordar.”</span>
+          <span class="ornate-divider-mini"><svg viewBox="0 0 64 32"><use href="#rose-divider"/></svg></span>
+          <span class="society-signature"><span class="write-on write-on-flow">El Castillo Encantado anuncia<span class="quill-tip" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16l-1 4Zm10-13 3 3M4 20l5-5"/></svg></span></span></span>
+          <span class="quote-text">&ldquo;La temporada reserva una velada inolvidable:<br>una joven encantadora, música, flores y una celebración digna de recordar.&rdquo;</span>
           <span class="society-closing">Esperamos contar con vuestra distinguida presencia.</span>
         </span>
       </span>
@@ -162,25 +152,40 @@
   <section id="countdown-section" class="countdown-section chapter" data-chapter="IV" data-chapter-name="La cuenta">
     <p class="section-kicker reveal">El baile se aproxima</p>
     <h2 class="section-title reveal">La cuenta de la temporada</h2>
-    <div class="pocket-watch print-frame reveal">
-      <span class="watch-loop"></span>
-      <div class="watch-face">
-        <div class="countdown" id="countdown">
-          <div class="countdown-box"><span class="cd-num" id="cd-days">00</span><span class="cd-label">Días</span></div>
-          <div class="countdown-box"><span class="cd-num" id="cd-hours">00</span><span class="cd-label">Horas</span></div>
-          <div class="countdown-box"><span class="cd-num" id="cd-mins">00</span><span class="cd-label">Min</span></div>
-          <div class="countdown-box"><span class="cd-num" id="cd-secs">00</span><span class="cd-label">Seg</span></div>
-        </div>
+    <svg class="countdown-rose reveal" viewBox="0 0 64 64" aria-hidden="true"><use href="#enchanted-rose-icon"/></svg>
+    <div class="almanac reveal">
+      <p class="alm-legend">Restan para la velada</p>
+      <div class="alm-row">
+        <div class="alm-cell" data-unit="days"><span class="alm-digit">00</span><span class="alm-label">Días</span></div>
+        <span class="alm-sep" aria-hidden="true"></span>
+        <div class="alm-cell" data-unit="hours"><span class="alm-digit">00</span><span class="alm-label">Horas</span></div>
+        <span class="alm-sep" aria-hidden="true"></span>
+        <div class="alm-cell" data-unit="mins"><span class="alm-digit">00</span><span class="alm-label">Minutos</span></div>
+        <span class="alm-sep" aria-hidden="true"></span>
+        <div class="alm-cell alm-cell--live" data-unit="secs"><span class="alm-digit alm-digit--live">00</span><span class="alm-label">Segundos</span></div>
       </div>
+      <div class="alm-scale" aria-hidden="true"><span class="alm-scale-fill" id="alm-scale-fill"></span></div>
+      <p class="sr-only" id="countdown-live" role="timer" aria-live="polite"></p>
     </div>
     <p class="countdown-caption reveal">hasta que comience una noche digna de recordar.</p>
+    <div class="event-calendar reveal" aria-label="Calendario de octubre de 2026; el evento es el viernes 30">
+      <p class="calendar-month">Octubre <span>2026</span></p>
+      <div class="calendar-grid calendar-weekdays" aria-hidden="true"><span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+      <div class="calendar-grid">
+        <span></span><span></span><span></span><span>1</span><span>2</span><span>3</span><span>4</span>
+        <span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span>
+        <span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span>
+        <span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span>
+        <span>26</span><span>27</span><span>28</span><span>29</span><span class="event-day" aria-label="30 de octubre, día del evento">30</span><span>31</span><span></span>
+      </div>
+    </div>
   </section>
 
   <!-- ============ DETALLES ============ -->
   <section id="detalles" class="section detalles chapter" data-chapter="V" data-chapter-name="La velada">
     <p class="section-kicker reveal">El anuncio oficial</p>
     <h2 class="section-title reveal">La velada de Mia</h2>
-    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
+    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 64 32"><use href="#rose-divider"/></svg><span></span></div>
 
     <div class="cards-grid">
       <article class="royal-card print-frame reveal">
@@ -209,7 +214,7 @@
       </iframe>
       <a class="btn btn-gold" target="_blank" rel="noopener"
          href="https://www.google.com/maps/dir/?api=1&destination=Av.+Pres.+Juan+Domingo+Per%C3%B3n+3279%2C+B1650+Villa+San+Andr%C3%A9s%2C+Provincia+de+Buenos+Aires">
-        Cómo llegar
+        Ver mapa
         <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-7.5 7-13a7 7 0 10-14 0c0 5.5 7 13 7 13z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="9" r="2.4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
       </a>
     </div>
@@ -219,37 +224,41 @@
   <section id="cronograma" class="section cronograma chapter" data-chapter="VI" data-chapter-name="El baile">
     <p class="section-kicker reveal">Un programa para recordar</p>
     <h2 class="section-title reveal">El orden de la velada</h2>
-    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
+    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 64 32"><use href="#rose-divider"/></svg><span></span></div>
 
     <ol class="timeline reveal">
-      <li class="timeline-item reveal"><span class="tl-time">20:00</span><span class="tl-dot"></span><div class="tl-content print-frame"><h3>La recepción</h3><p>Bienvenida y brindis de honor</p></div></li>
-      <li class="timeline-item reveal"><span class="tl-time">20:30</span><span class="tl-dot"></span><div class="tl-content print-frame"><h3>La entrada de Mia</h3><p>El momento más esperado de la temporada</p></div></li>
-      <li class="timeline-item reveal"><span class="tl-time">21:00</span><span class="tl-dot"></span><div class="tl-content print-frame"><h3>El vals</h3><p>El primer baile de la protagonista</p></div></li>
-      <li class="timeline-item reveal"><span class="tl-time">21:30</span><span class="tl-dot"></span><div class="tl-content print-frame"><h3>La cena</h3><p>Una mesa preparada para celebrar</p></div></li>
-      <li class="timeline-item reveal"><span class="tl-time">23:00</span><span class="tl-dot"></span><div class="tl-content print-frame"><h3>El gran baile</h3><p>La pista queda abierta para todos</p></div></li>
-      <li class="timeline-item reveal"><span class="tl-time">00:00</span><span class="tl-dot"></span><div class="tl-content print-frame"><h3>El brindis de medianoche</h3><p>Un recuerdo para atesorar</p></div></li>
+      <li class="timeline-item reveal"><span class="tl-time">20:00</span><span class="tl-dot"></span><span class="tl-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#timeline-welcome"/></svg></span><div class="tl-content print-frame"><h3>La recepción</h3><p>Bienvenida y brindis de honor</p></div></li>
+      <li class="timeline-item reveal"><span class="tl-time">20:30</span><span class="tl-dot"></span><span class="tl-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#timeline-entrance"/></svg></span><div class="tl-content print-frame"><h3>La entrada de Mia</h3><p>El momento más esperado de la temporada</p></div></li>
+      <li class="timeline-item reveal"><span class="tl-time">21:00</span><span class="tl-dot"></span><span class="tl-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#timeline-music"/></svg></span><div class="tl-content print-frame"><h3>El vals</h3><p>El primer baile de la protagonista</p></div></li>
+      <li class="timeline-item reveal"><span class="tl-time">21:30</span><span class="tl-dot"></span><span class="tl-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#timeline-dinner"/></svg></span><div class="tl-content print-frame"><h3>La cena</h3><p>Una mesa preparada para celebrar</p></div></li>
+      <li class="timeline-item reveal"><span class="tl-time">23:00</span><span class="tl-dot"></span><span class="tl-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#timeline-dance"/></svg></span><div class="tl-content print-frame"><h3>El gran baile</h3><p>La pista queda abierta para todos</p></div></li>
+      <li class="timeline-item reveal"><span class="tl-time">00:00</span><span class="tl-dot"></span><span class="tl-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#timeline-toast"/></svg></span><div class="tl-content print-frame"><h3>El brindis de medianoche</h3><p>Un recuerdo para atesorar</p></div></li>
     </ol>
   </section>
 
   <!-- ============ VESTIMENTA ============ -->
   <section id="vestimenta" class="section vestimenta chapter" data-chapter="VII" data-chapter-name="El atuendo">
+    <svg class="scene-object candelabrum" viewBox="0 0 120 150" aria-hidden="true">
+      <path d="M60 135V58M32 135h56M45 135l15-18 15 18M60 72C45 72 34 63 34 48M60 72c15 0 26-9 26-24M34 48H22M86 48h12M22 48V29M98 48V29M60 58V24"/>
+      <path d="M17 28c5-10 11-10 16 0-4 4-12 4-16 0Zm35-5c5-12 11-12 16 0-4 5-12 5-16 0Zm38 5c5-10 11-10 16 0-4 4-12 4-16 0Z"/>
+    </svg>
     <p class="section-kicker reveal">Una noche de gala</p>
     <h2 class="section-title reveal">El atuendo</h2>
-    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
+    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 64 32"><use href="#rose-divider"/></svg><span></span></div>
     <p class="reveal centered-text">Elegante formal. Una ocasión para vestirse con especial encanto.</p>
     <div class="palette-row print-frame reveal">
-      <div class="swatch" style="--sw:#D8B7B4"><span>Rosa Antiguo</span></div>
-      <div class="swatch" style="--sw:#B99A61"><span>Dorado</span></div>
-      <div class="swatch" style="--sw:#FFFDFB"><span>Blanco</span></div>
+      <div class="swatch" style="--sw:#9E1B22"><span>Rojo Encantado</span></div>
+      <div class="swatch" style="--sw:#D4AF37"><span>Oro Antiguo</span></div>
+      <div class="swatch" style="--sw:#6F7450"><span>Verde Oliva</span></div>
     </div>
-    <p class="reveal centered-text small-note">El rosa viejo ha sido reservado para la protagonista de la velada.</p>
+    <p class="reveal centered-text small-note">El rojo encantado ha sido reservado para la protagonista de la velada.</p>
   </section>
 
   <!-- ============ GALERÍA ============ -->
   <section id="galeria" class="section galeria chapter" data-chapter="VIII" data-chapter-name="Los retratos">
     <p class="section-kicker reveal">Recuerdos de la temporada</p>
     <h2 class="section-title reveal">Los retratos de Mia</h2>
-    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
+    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 64 32"><use href="#rose-divider"/></svg><span></span></div>
     <p class="reveal centered-text small-note gallery-intro">Muy pronto, los recuerdos favoritos de la protagonista.</p>
     <div class="gallery-grid">
       <button class="gallery-frame print-frame reveal" data-index="0"><img src="assets/gallery/foto1.jpg" alt="Foto de Mia 1" onerror="this.closest('.gallery-frame').classList.add('placeholder')"></button>
@@ -263,15 +272,20 @@
 
   <!-- ============ LIGHTBOX ============ -->
   <div id="lightbox" class="lightbox" aria-hidden="true">
-    <button class="lightbox-close" id="lightbox-close" aria-label="Cerrar">✕</button>
+    <button class="lightbox-close" id="lightbox-close" aria-label="Cerrar">&times;</button>
     <img id="lightbox-img" src="" alt="">
   </div>
 
   <!-- ============ REGALOS ============ -->
   <section id="regalos" class="section regalos chapter" data-chapter="IX" data-chapter-name="Los obsequios">
+    <svg class="scene-object teapot" viewBox="0 0 150 110" aria-hidden="true">
+      <path d="M45 38c8-8 52-8 60 0l-5 45c-13 12-43 12-56 0Z"/>
+      <path d="M52 34c4-15 42-15 46 0M64 18h22M75 18V10M103 44c24-4 30 10 21 26-5 9-13 13-24 12M44 48C29 44 18 49 10 59c14 0 24 5 33 14"/>
+      <path d="M58 54c8-10 26-10 34 0-4 15-30 15-34 0Z"/>
+    </svg>
     <p class="section-kicker reveal">Un gesto de cariño</p>
     <h2 class="section-title reveal">Obsequios</h2>
-    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
+    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 64 32"><use href="#rose-divider"/></svg><span></span></div>
     <div class="royal-card print-frame reveal centered-card">
       <div class="royal-card-icon"><svg viewBox="0 0 48 48"><rect x="7" y="19" width="34" height="22" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 27h34" stroke="currentColor" stroke-width="2"/><path d="M24 19v22" stroke="currentColor" stroke-width="2"/><path d="M24 19c-4-8-14-8-14-1 0 3 6 1 14 1zM24 19c4-8 14-8 14-1 0 3-6 1-14 1z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
       <p>Tu presencia es el regalo más importante.<br>Si además querés hacerle un obsequio a Mia, se agradece una <strong>lluvia de sobres</strong>.</p>
@@ -293,7 +307,7 @@
   <section id="confirmar" class="section confirmar chapter" data-chapter="X" data-chapter-name="La respuesta">
     <p class="section-kicker reveal">La lista de invitados</p>
     <h2 class="section-title reveal">Respondé a la invitación</h2>
-    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 24 24"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg><span></span></div>
+    <div class="ornate-divider reveal"><span></span><svg viewBox="0 0 64 32"><use href="#rose-divider"/></svg><span></span></div>
     <p class="reveal centered-text">Por favor confirmá antes del <strong>15 de Octubre de 2026</strong></p>
 
     <form id="rsvp-form" class="rsvp-form print-frame reveal">
@@ -318,13 +332,15 @@
       </label>
       <button type="submit" class="btn btn-gold rsvp-submit"><span class="rsvp-submit-label">Enviar confirmación por WhatsApp</span></button>
     </form>
+    <figure class="closing-portrait reveal">
+      <img src="assets/gallery/foto1.jpg" alt="Retrato de Mia" onerror="this.closest('.closing-portrait').classList.add('placeholder')">
+      <figcaption>Y así comienza una noche para recordar</figcaption>
+    </figure>
   </section>
 
   <!-- ============ FOOTER ============ -->
   <footer class="site-footer">
-    <svg class="crown-icon small reveal" viewBox="0 0 64 40" aria-hidden="true">
-      <path d="M4 36 L2 12 L16 22 L32 4 L48 22 L62 12 L60 36 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-    </svg>
+    <svg class="crown-icon small reveal" viewBox="0 0 64 64" aria-hidden="true"><use href="#enchanted-rose-icon"/></svg>
     <p class="footer-name">Mia</p>
     <p class="footer-fullname">Mia Princesa Eluney Martinez</p>
     <p class="footer-hashtag">#Mis15AñosMia</p>
@@ -345,7 +361,25 @@
       <circle cx="4" cy="116" r="3" fill="currentColor"/>
       <circle cx="60" cy="4" r="3" fill="currentColor"/>
       <path d="M20 108 q8 -8 0 -16 q-8 8 0 16 z" fill="currentColor" opacity="0.7"/>
+      <path d="M32 53c9-7 19 1 14 10-3 6-11 9-18 6-7-3-9-11-4-16 2-3 5-4 8 0Z" fill="currentColor" opacity="0.7"/>
     </g>
+    <g id="enchanted-rose-icon">
+      <path d="M32 55C29 43 34 35 31 23M31 43c-7-1-11-5-14-10M33 39c7-2 11-6 14-11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M29 42c-6-6-11-6-15-3 4 5 9 7 15 3Zm5-5c4-7 10-9 16-6-2 6-7 9-16 6Z" fill="currentColor" opacity="0.72"/>
+      <path d="M31 8c5-5 12-2 12 4 6-1 9 5 6 10 5 3 2 10-4 10-2 6-10 7-14 2-5 5-12 2-12-4-6 0-9-7-4-11-4-5 0-11 6-11 1-6 8-8 13-1Z" fill="#9E1B22" stroke="currentColor" stroke-width="1"/>
+      <path d="M12 57h40M16 54V28c0-16 7-25 16-25s16 9 16 25v26" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    </g>
+    <g id="rose-divider">
+      <path d="M2 16h19M43 16h19M21 16c5-9 17-9 22 0-5 9-17 9-22 0Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M27 14c1-5 9-6 10 0 4 0 5 5 1 7-3 3-9 3-12 0-4-2-3-7 1-7Z" fill="#9E1B22" stroke="currentColor" stroke-width="1"/>
+      <path d="M24 18c-4 0-6 2-8 5M40 18c4 0 6 2 8 5" fill="none" stroke="#6F7450" stroke-width="1.5"/>
+    </g>
+    <g id="timeline-welcome" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 4h10l-1 8a4 4 0 0 1-8 0L7 4Zm5 12v4m-4 0h8"/></g>
+    <g id="timeline-entrance" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.3 6.7L21 11l-6.7 2.3L12 20l-2.3-6.7L3 11l6.7-2.3L12 2Z"/></g>
+    <g id="timeline-music" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18V6l10-2v11M9 9l10-2"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="15" r="3"/></g>
+    <g id="timeline-dinner" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="6"/><path d="M3 4v7m3-7v7M4.5 11v9M20 4c-3 3-3 8 0 10v6"/></g>
+    <g id="timeline-dance" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 18V6l10-2v11M7 10l10-2"/><circle cx="4" cy="18" r="3"/><circle cx="14" cy="15" r="3"/></g>
+    <g id="timeline-toast" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 4h6l-1 7a3 3 0 0 1-4 0L5 4Zm8 0h6l-1 7a3 3 0 0 1-4 0L13 4ZM8 14v5m8-5v5m-11 1h6m2 0h6"/></g>
   </defs>
 </svg>
 
