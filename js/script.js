@@ -36,6 +36,7 @@ const CONFIG = {
     seal.classList.remove('pressing');
     seal.classList.add('rippling');
     envelope.classList.add('opening');
+    window.startInvitationMusic?.();
     const box = seal.getBoundingClientRect();
     window.spawnFloralBurst?.(box.left + box.width / 2, box.top + box.height / 2);
     document.body.style.overflow = 'hidden';
@@ -179,6 +180,30 @@ const CONFIG = {
   const markerName = document.getElementById('chapter-marker-name');
   if (!chapters.length || !markerNum) return;
 
+  const roseLayouts = new Map([
+    ['hero', ['left']],
+    ['gazette', ['right']],
+    ['secreto-rosa', ['left', 'right']],
+    ['countdown-section', ['left']],
+    ['detalles', ['right']],
+    ['galeria', ['left', 'right']],
+    ['confirmar', ['right']],
+  ]);
+
+  function createVine(side) {
+    return `
+      <span class="chapter-vine chapter-vine--${side}" aria-hidden="true">
+        <span class="vine-leaf vine-leaf--1"></span><span class="vine-leaf vine-leaf--2"></span>
+        <span class="living-rose rose-bloom--1"></span><span class="living-rose rose-bloom--2"></span>
+      </span>
+    `;
+  }
+
+  chapters.forEach(chapter => {
+    const sides = roseLayouts.get(chapter.id);
+    if (sides) chapter.insertAdjacentHTML('beforeend', sides.map(createVine).join(''));
+  });
+
   const turnObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -286,33 +311,58 @@ const CONFIG = {
 (function petals() {
   const canvas = document.getElementById('petals-canvas');
   const ctx = canvas.getContext('2d');
-  let w, h, particles;
+  const backCanvas = document.createElement('canvas');
+  backCanvas.id = 'petals-back-canvas';
+  const backCtx = backCanvas.getContext('2d');
+  let w, h, documentHeight, particles;
+
+  document.body.append(backCanvas, canvas);
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function resize() {
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
+    backCanvas.width = w;
+    backCanvas.height = h;
+    documentHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
   }
   window.addEventListener('resize', resize);
   resize();
 
+  if ('ResizeObserver' in window) {
+    const sizeObserver = new ResizeObserver(() => {
+      documentHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+    });
+    sizeObserver.observe(document.body);
+  }
+
   function makeParticle(startOnScreen = false) {
+    const foreground = Math.random() < 0.38;
+    const depth = foreground ? 0.9 + Math.random() * 0.5 : 0.48 + Math.random() * 0.48;
     return {
+      layer: foreground ? 'front' : 'back',
       x: Math.random() * w,
-      y: startOnScreen ? Math.random() * h : Math.random() * -h,
-      size: 4 + Math.random() * 7,
-      speedY: 0.35 + Math.random() * 0.7,
-      speedX: (Math.random() - 0.5) * 0.55,
+      y: startOnScreen ? window.scrollY + Math.random() * h : Math.random() * documentHeight,
+      size: (4 + Math.random() * 6) * depth,
+      speedY: (0.32 + Math.random() * 0.62) * depth,
+      speedX: (Math.random() - 0.5) * 0.42,
       rotation: Math.random() * Math.PI * 2,
-      rotSpeed: (Math.random() - 0.5) * 0.02,
-      opacity: 0.26 + Math.random() * 0.32,
+      rotSpeed: (Math.random() - 0.5) * 0.035,
+      phase: Math.random() * Math.PI * 2,
+      phaseSpeed: 0.012 + Math.random() * 0.018,
+      sway: 0.18 + Math.random() * 0.38,
+      opacity: (foreground ? 0.3 + Math.random() * 0.25 : 0.18 + Math.random() * 0.2) * depth,
       color: Math.random() > 0.28 ? '158,27,34' : '107,15,22',
     };
   }
 
-  const COUNT = reduceMotion ? 0 : Math.min(52, Math.floor(w / 24));
-  particles = Array.from({ length: COUNT }, () => makeParticle(true));
+  const COUNT = reduceMotion ? 0 : Math.min(90, Math.max(40, Math.ceil(documentHeight / 125)));
+  particles = Array.from({ length: COUNT }, (_, index) => {
+    const particle = makeParticle(false);
+    particle.y = ((index + Math.random() * 0.65) / COUNT) * documentHeight;
+    return particle;
+  });
 
   // Twinkling gold dust that lingers in place, like motes caught in candlelight.
   const MOTE_COUNT = reduceMotion ? 0 : Math.min(20, Math.floor(w / 40));
@@ -324,17 +374,32 @@ const CONFIG = {
     speed: 0.02 + Math.random() * 0.03,
   }));
 
-  function drawPetal(p) {
-    ctx.save();
-    ctx.translate(p.x, p.y);
-    ctx.rotate(p.rotation);
-    ctx.fillStyle = `rgba(${p.color},${p.opacity})`;
-    ctx.beginPath();
-    ctx.moveTo(0, -p.size);
-    ctx.bezierCurveTo(p.size, -p.size * 0.4, p.size * 0.75, p.size * 0.72, 0, p.size);
-    ctx.bezierCurveTo(-p.size * 0.75, p.size * 0.72, -p.size, -p.size * 0.4, 0, -p.size);
-    ctx.fill();
-    ctx.restore();
+  function drawPetal(p, target = ctx) {
+    target.save();
+    target.translate(p.x, p.y);
+    target.rotate(p.rotation);
+    const flutter = 0.35 + Math.abs(Math.sin(p.phase)) * 0.65;
+    target.scale(1, flutter);
+    const gradient = target.createRadialGradient(-p.size * 0.28, -p.size * 0.38, 0, 0, 0, p.size * 1.2);
+    gradient.addColorStop(0, `rgba(215,86,94,${Math.min(0.9, p.opacity + 0.2)})`);
+    gradient.addColorStop(0.42, `rgba(${p.color},${p.opacity})`);
+    gradient.addColorStop(1, `rgba(72,4,12,${Math.max(0.18, p.opacity - 0.12)})`);
+    target.fillStyle = gradient;
+    target.shadowColor = 'rgba(107,15,22,0.24)';
+    target.shadowBlur = p.size * 0.45;
+    target.beginPath();
+    target.moveTo(0, -p.size);
+    target.bezierCurveTo(p.size * 0.95, -p.size * 0.5, p.size * 0.78, p.size * 0.62, p.size * 0.08, p.size);
+    target.bezierCurveTo(-p.size * 0.64, p.size * 0.7, -p.size * 0.92, -p.size * 0.28, 0, -p.size);
+    target.fill();
+    target.shadowBlur = 0;
+    target.strokeStyle = `rgba(243,233,210,${p.opacity * 0.36})`;
+    target.lineWidth = Math.max(0.5, p.size * 0.07);
+    target.beginPath();
+    target.moveTo(0, -p.size * 0.75);
+    target.quadraticCurveTo(-p.size * 0.1, 0, p.size * 0.08, p.size * 0.72);
+    target.stroke();
+    target.restore();
   }
 
   // Tap/click anywhere (outside interactive controls) blooms a small burst
@@ -390,23 +455,30 @@ const CONFIG = {
 
   function animate() {
     ctx.clearRect(0, 0, w, h);
+    backCtx.clearRect(0, 0, w, h);
     motes.forEach(m => {
       m.phase += m.speed;
       const twinkle = 0.15 + (Math.sin(m.phase) + 1) / 2 * 0.35;
-      ctx.save();
-      ctx.globalAlpha = twinkle;
-      ctx.fillStyle = '#d4af37';
-      ctx.beginPath();
-      ctx.arc(m.x, m.y, m.size, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
+      backCtx.save();
+      backCtx.globalAlpha = twinkle;
+      backCtx.fillStyle = '#d4af37';
+      backCtx.beginPath();
+      backCtx.arc(m.x, m.y, m.size, 0, Math.PI * 2);
+      backCtx.fill();
+      backCtx.restore();
     });
     particles.forEach(p => {
       p.y += p.speedY;
-      p.x += p.speedX;
+      p.phase += p.phaseSpeed;
+      p.x += p.speedX + Math.sin(p.phase) * p.sway;
       p.rotation += p.rotSpeed;
-      if (p.y > h + 20) Object.assign(p, makeParticle(), { y: -20 });
-      drawPetal(p);
+      if (p.y > documentHeight + 24) p.y = -24;
+      if (p.x < -24) p.x = w + 20;
+      if (p.x > w + 24) p.x = -20;
+      const viewportY = p.y - window.scrollY;
+      if (viewportY > -30 && viewportY < h + 30) {
+        drawPetal({ ...p, y: viewportY }, p.layer === 'front' ? ctx : backCtx);
+      }
     });
     bursts.forEach(p => {
       p.x += p.vx;
@@ -470,24 +542,91 @@ const CONFIG = {
 })();
 
 // ==========================================================================
-// MUSIC TOGGLE
+// LOOPING BACKGROUND MUSIC
 // ==========================================================================
 (function music() {
-  const btn = document.getElementById('music-toggle');
+  const indicator = document.getElementById('music-indicator');
   const audio = document.getElementById('bg-music');
-  let playing = false;
+  const notes = [...indicator.querySelectorAll('.air-note')];
+  let noteTimer = null;
+  let lastNote = null;
+  let lastOrientation = null;
+  let orientationRun = 0;
 
-  btn.addEventListener('click', () => {
-    if (!playing) {
-      audio.play().catch(() => {
-        console.warn('Agregá un archivo de audio en assets/music/song.mp3 para habilitar la música.');
-      });
-      btn.classList.add('playing');
-    } else {
-      audio.pause();
-      btn.classList.remove('playing');
+  audio.loop = true;
+  audio.volume = 0.72;
+
+  function scheduleNote() {
+    if (noteTimer) return;
+    const shortBurst = Math.random() < 0.42;
+    const delay = shortBurst ? 800 + Math.random() * 1000 : 2200 + Math.random() * 2000;
+    noteTimer = setTimeout(emitNote, delay);
+  }
+
+  function emitNote() {
+    noteTimer = null;
+    if (!indicator.classList.contains('playing') || document.hidden) {
+      scheduleNote();
+      return;
     }
-    playing = !playing;
+
+    const available = notes.filter(note => !note.classList.contains('sounding') && note !== lastNote);
+    if (!available.length) {
+      noteTimer = setTimeout(emitNote, 320);
+      return;
+    }
+
+    const note = available[Math.floor(Math.random() * available.length)];
+    const duration = 6.8 + Math.random() * 2;
+    const sway = 7 + Math.random() * 10;
+    const swayDirection = Math.random() < 0.5 ? -1 : 1;
+    note.style.setProperty('--note-duration', `${duration.toFixed(2)}s`);
+    note.style.setProperty('--tilt-a', `${(sway * swayDirection).toFixed(1)}deg`);
+    note.style.setProperty('--tilt-b', `${(-sway * 0.8 * swayDirection).toFixed(1)}deg`);
+    if (note.hasAttribute('data-flippable')) {
+      let upsideDown = Math.random() < 0.5;
+      if (upsideDown === lastOrientation && orientationRun >= 2) upsideDown = !upsideDown;
+      orientationRun = upsideDown === lastOrientation ? orientationRun + 1 : 1;
+      lastOrientation = upsideDown;
+      note.style.setProperty('--orientation', upsideDown ? '180deg' : '0deg');
+    } else {
+      note.style.setProperty('--orientation', '0deg');
+    }
+    note.classList.add('sounding');
+    lastNote = note;
+    scheduleNote();
+  }
+
+  notes.forEach(note => {
+    note.addEventListener('animationend', () => note.classList.remove('sounding'));
+  });
+
+  function startNoteStream() {
+    if (!noteTimer && !notes.some(note => note.classList.contains('sounding'))) emitNote();
+  }
+
+  function start() {
+    indicator.classList.add('loading');
+    return audio.play().then(() => {
+      indicator.classList.remove('loading', 'blocked');
+      indicator.classList.add('playing');
+      indicator.setAttribute('aria-label', 'Música de fondo reproduciéndose');
+      startNoteStream();
+    }).catch(() => {
+      indicator.classList.remove('loading', 'playing');
+      indicator.classList.add('blocked');
+      indicator.setAttribute('aria-label', 'Música pendiente de reproducción');
+    });
+  }
+
+  window.startInvitationMusic = start;
+  audio.addEventListener('playing', () => {
+    indicator.classList.add('playing');
+    startNoteStream();
+  });
+  audio.addEventListener('ended', start);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && document.body.classList.contains('invitation-open') && audio.paused) start();
   });
 })();
 
