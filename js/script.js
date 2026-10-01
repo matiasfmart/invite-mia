@@ -193,8 +193,10 @@ const CONFIG = {
   function createVine(side) {
     return `
       <span class="chapter-vine chapter-vine--${side}" aria-hidden="true">
+        <svg class="vine-stem-art" viewBox="0 0 100 300" preserveAspectRatio="none"><use href="#botanical-vine-stem"/></svg>
         <span class="vine-leaf vine-leaf--1"></span><span class="vine-leaf vine-leaf--2"></span>
-        <span class="living-rose rose-bloom--1"></span><span class="living-rose rose-bloom--2"></span>
+        <svg class="botanical-rose rose-bloom--1" viewBox="0 0 80 130"><use class="botanical-rose__stem" href="#botanical-rose-stem"/><use class="botanical-rose__bloom" href="#botanical-rose-bloom"/><use class="botanical-rose__light" href="#botanical-rose-light"/></svg>
+        <svg class="botanical-rose rose-bloom--2" viewBox="0 0 80 130"><use class="botanical-rose__stem" href="#botanical-rose-stem"/><use class="botanical-rose__bloom" href="#botanical-rose-bloom"/><use class="botanical-rose__light" href="#botanical-rose-light"/></svg>
       </span>
     `;
   }

@@ -38,12 +38,21 @@
     <div class="envelope storybook" id="envelope">
       <div class="envelope-back"></div>
       <div class="envelope-letter">
-        <span class="living-rose book-rose" aria-hidden="true"></span>
+        <svg class="botanical-rose book-rose" viewBox="0 0 80 130" aria-hidden="true"><use class="botanical-rose__stem" href="#botanical-rose-stem"/><use class="botanical-rose__bloom" href="#botanical-rose-bloom"/><use class="botanical-rose__light" href="#botanical-rose-light"/></svg>
         <span class="letter-monogram">Mis XV</span>
         <span class="letter-line">Mia</span>
         <span class="letter-line small">30 &middot; 10 &middot; 2026</span>
       </div>
-      <div class="envelope-flap"></div>
+      <div class="envelope-flap">
+        <span class="book-cover-frame" aria-hidden="true"></span>
+        <svg class="book-cover-corner book-cover-corner--tl" viewBox="0 0 100 100" aria-hidden="true"><use href="#book-cover-corner"/></svg>
+        <svg class="book-cover-corner book-cover-corner--tr" viewBox="0 0 100 100" aria-hidden="true"><use href="#book-cover-corner"/></svg>
+        <svg class="book-cover-corner book-cover-corner--bl" viewBox="0 0 100 100" aria-hidden="true"><use href="#book-cover-corner"/></svg>
+        <svg class="book-cover-corner book-cover-corner--br" viewBox="0 0 100 100" aria-hidden="true"><use href="#book-cover-corner"/></svg>
+        <span class="book-cover-title"><small>Mis XV Años</small><strong>Mia</strong><em>Una noche encantada</em></span>
+        <svg class="book-cover-rose botanical-rose" viewBox="0 0 80 130" aria-hidden="true"><use class="botanical-rose__stem" href="#botanical-rose-stem"/><use class="botanical-rose__bloom" href="#botanical-rose-bloom"/><use class="botanical-rose__light" href="#botanical-rose-light"/></svg>
+        <span class="book-cover-ribbon" aria-hidden="true"></span>
+      </div>
       <button class="wax-seal golden-key" id="wax-seal" aria-label="Abrir el libro de la invitación">
         <svg viewBox="0 0 80 32" aria-hidden="true"><circle cx="15" cy="16" r="9"/><circle cx="15" cy="16" r="4"/><path d="M24 16h42l7-7M56 16v8M64 16v6"/></svg>
       </button>
@@ -103,7 +112,7 @@
       <p class="hero-eyebrow reveal">Érase una vez...</p>
       <p class="society-intro reveal">En un reino no muy lejano, la familia Martínez se preparaba para celebrar un capítulo inolvidable.</p>
 
-      <span class="living-rose crown-icon reveal" aria-hidden="true"></span>
+      <svg class="botanical-rose crown-icon reveal" viewBox="0 0 80 130" aria-hidden="true"><use class="botanical-rose__stem" href="#botanical-rose-stem"/><use class="botanical-rose__bloom" href="#botanical-rose-bloom"/><use class="botanical-rose__light" href="#botanical-rose-light"/></svg>
 
       <h1 class="hero-title reveal">
         <span class="hero-title-sub">Mis Quince Años</span>
@@ -132,7 +141,7 @@
         <figcaption>Mia &middot; La protagonista de esta historia</figcaption>
       </figure>
       <div class="welcome-message">
-        <span class="living-rose welcome-rose" aria-hidden="true"></span>
+        <svg class="botanical-rose welcome-rose" viewBox="0 0 80 130" aria-hidden="true"><use class="botanical-rose__stem" href="#botanical-rose-stem"/><use class="botanical-rose__bloom" href="#botanical-rose-bloom"/><use class="botanical-rose__light" href="#botanical-rose-light"/></svg>
         <h3>El primer capítulo</h3>
         <p>Mia Princesa Eluney Martinez estaba a punto de cumplir quince años y deseaba compartir este capítulo inolvidable junto a quienes más quiere.</p>
         <p>La noche del 30 de octubre, las puertas se abrirán y el salón se vestirá de rosas, música y buenos deseos.</p>
@@ -147,7 +156,7 @@
     <button class="oracle-card reveal" id="oracle-card" aria-expanded="false">
       <span class="oracle-card-inner">
         <span class="oracle-face oracle-front">
-          <span class="oracle-emblem living-rose" aria-hidden="true"></span>
+          <svg class="oracle-emblem botanical-rose" viewBox="0 0 80 130" aria-hidden="true"><use class="botanical-rose__stem" href="#botanical-rose-stem"/><use class="botanical-rose__bloom" href="#botanical-rose-bloom"/><use class="botanical-rose__light" href="#botanical-rose-light"/></svg>
           <span class="oracle-hint">Tocá la rosa para descubrir su secreto</span>
         </span>
         <span class="oracle-face oracle-back">
@@ -164,7 +173,7 @@
   <section id="countdown-section" class="countdown-section chapter" data-chapter="IV" data-chapter-name="La cuenta">
     <p class="section-kicker reveal">El baile se aproxima</p>
     <h2 class="section-title reveal">Falta poco para que comience el cuento</h2>
-    <span class="countdown-rose living-rose reveal" aria-hidden="true"></span>
+    <svg class="countdown-rose botanical-rose reveal" viewBox="0 0 80 130" aria-hidden="true"><use class="botanical-rose__stem" href="#botanical-rose-stem"/><use class="botanical-rose__bloom" href="#botanical-rose-bloom"/><use class="botanical-rose__light" href="#botanical-rose-light"/></svg>
     <div class="almanac reveal">
       <p class="alm-legend">Faltan para la noche encantada</p>
       <div class="alm-row">
@@ -349,7 +358,7 @@
 
   <!-- ============ FOOTER ============ -->
   <footer class="site-footer">
-    <span class="living-rose crown-icon small reveal" aria-hidden="true"></span>
+    <svg class="botanical-rose crown-icon small reveal" viewBox="0 0 80 130" aria-hidden="true"><use class="botanical-rose__stem" href="#botanical-rose-stem"/><use class="botanical-rose__bloom" href="#botanical-rose-bloom"/><use class="botanical-rose__light" href="#botanical-rose-light"/></svg>
     <p class="footer-name">Mia</p>
     <p class="footer-fullname">Mia Princesa Eluney Martinez</p>
     <p class="footer-hashtag">#Mis15AñosMia</p>
@@ -371,6 +380,48 @@
       <circle cx="60" cy="4" r="3" fill="currentColor"/>
       <path d="M20 108 q8 -8 0 -16 q-8 8 0 16 z" fill="currentColor" opacity="0.7"/>
       <path d="M32 53c9-7 19 1 14 10-3 6-11 9-18 6-7-3-9-11-4-16 2-3 5-4 8 0Z" fill="currentColor" opacity="0.7"/>
+    </g>
+    <g id="book-cover-corner" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 95V30C5 16 16 5 30 5h65" stroke-width="2"/>
+      <path d="M11 88V35c0-13 11-24 24-24h53" stroke-width="0.9"/>
+      <path d="M7 62c17-3 22-14 17-25-4-9 3-18 13-14 9 4 8 16 0 20-7 4-15 0-15-8" stroke-width="1.7"/>
+      <path d="M18 80c5-18 20-24 31-16 9 7 5 20-6 21-9 1-14-9-8-15 5-5 13-1 11 5" stroke-width="1.5"/>
+      <path d="M38 8c2 14 11 20 22 15 9-4 18 3 14 13-4 9-16 8-20 0-4-7 0-15 8-15" stroke-width="1.7"/>
+      <path d="M16 22c8 0 13-4 16-12M22 16c-1 8-5 13-13 16M58 14c8 5 15 5 23 0M14 58c5 8 5 15 0 23" stroke-width="1.1"/>
+      <path d="M29 31c5-8 13-11 21-8-7 3-11 8-12 15-5-1-8-3-9-7ZM31 57c9-3 17 0 22 7-8-2-14 0-19 5-3-4-4-8-3-12Z" fill="currentColor" stroke-width="0.6"/>
+      <circle cx="8" cy="8" r="2.2" fill="currentColor" stroke="none"/><path d="M88 6l3 3-3 3-3-3Z" fill="currentColor" stroke="none"/>
+    </g>
+    <linearGradient id="rose-stem-gradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#394426"/><stop offset="0.48" stop-color="#788052"/><stop offset="0.72" stop-color="#526038"/><stop offset="1" stop-color="#2d371f"/></linearGradient>
+    <linearGradient id="rose-leaf-gradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#99a16d"/><stop offset="0.4" stop-color="#667144"/><stop offset="1" stop-color="#354126"/></linearGradient>
+    <radialGradient id="rose-petal-main" cx="36%" cy="24%" r="78%"><stop offset="0" stop-color="#e46a70"/><stop offset="0.2" stop-color="#c72c36"/><stop offset="0.62" stop-color="#9e1721"/><stop offset="1" stop-color="#5d0710"/></radialGradient>
+    <radialGradient id="rose-petal-deep" cx="62%" cy="28%" r="72%"><stop offset="0" stop-color="#d34850"/><stop offset="0.38" stop-color="#9f1420"/><stop offset="1" stop-color="#49040b"/></radialGradient>
+    <linearGradient id="rose-petal-side" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#650912"/><stop offset="0.52" stop-color="#b51f2a"/><stop offset="1" stop-color="#790d16"/></linearGradient>
+    <g id="botanical-rose-stem">
+      <path d="M38.7 130C39.2 114 43.8 98 42.3 82C41.3 71.4 42.8 63.4 47 56.5C44.3 74.5 47.6 93.5 44.2 112.5C42.8 120.3 42 126.2 40.5 130Z" fill="url(#rose-stem-gradient)"/>
+      <path d="M42.4 91C31.8 84.6 24.4 85.5 18 91.2C27.3 95.4 35.5 96.2 42.8 93.2Z" fill="url(#rose-leaf-gradient)" stroke="#394426" stroke-width="0.7"/>
+      <path d="M44.3 78.5C51.8 69.2 59.2 67.2 66.5 70.6C60.4 77.6 53.2 81.1 44.3 81Z" fill="url(#rose-leaf-gradient)" stroke="#394426" stroke-width="0.7"/>
+      <path d="M41 64L31 53L43.5 56L50 46L51 61Z" fill="#4f5e35" stroke="#344024" stroke-width="0.8"/>
+      <path d="M40.5 129C40.8 113 42.4 100 43 88" fill="none" stroke="#a6ad79" stroke-width="0.7" stroke-linecap="round" opacity="0.65"/>
+    </g>
+    <g id="botanical-rose-bloom">
+      <path d="M20 54C14 43 15.5 29 24.5 20C31 13.5 39.5 13.5 46 9C55 2.8 67.5 8.2 70 18.5C77 23.8 77 32.5 69.2 38C72.2 49.5 62.5 59.5 51 64C38 69 26.3 64.8 20 54Z" fill="url(#rose-petal-main)" stroke="#5d0710" stroke-width="1.1"/>
+      <path d="M20 54C18.4 43 21.8 29.5 32 22C29.5 34.5 33 53 48.5 64C35.3 68 25.7 63 20 54Z" fill="url(#rose-petal-side)" opacity="0.92"/>
+      <path d="M32 22C39 13.2 50.5 10.5 60 15.5C51 17.5 44.5 24.5 43.8 35C38.7 32.5 34.7 28 32 22Z" fill="#b8232e" stroke="#76101a" stroke-width="0.8"/>
+      <path d="M43.8 35C44.4 23.8 53.5 17.8 63 20.5C69.8 22.5 71.5 29.5 66.3 34.2C61.8 38.5 53.2 39.5 43.8 35Z" fill="url(#rose-petal-deep)" stroke="#630812" stroke-width="0.9"/>
+      <path d="M48.5 29.8C52.8 23.5 61.7 23.1 64.5 27.8C66.8 31.7 61.2 35.2 55.5 34.2C52.2 33.6 49.8 32.2 48.5 29.8Z" fill="#720b14"/>
+      <path d="M23 48C31 56.5 43 60 56.5 56" fill="none" stroke="#df5961" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+      <path d="M27 24C22.8 34 23.5 43.5 28.8 51" fill="none" stroke="#ed7b80" stroke-width="1.1" stroke-linecap="round" opacity="0.48"/>
+    </g>
+    <g id="botanical-rose-light">
+      <path d="M51 14C57 10.5 64 13 67 18" fill="none" stroke="#f3a0a3" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/>
+      <path d="M36 20C40 17 44 15.5 48 14.5" fill="none" stroke="#f2a1a5" stroke-width="1" stroke-linecap="round" opacity="0.38"/>
+    </g>
+    <g id="botanical-vine-stem">
+      <path d="M49 300C47 272 53 245 50 217C46 184 52 157 48 126C45 101 48 73 53 48C56 31 57 16 54 2C60 20 58 35 56 50C52 76 51 101 54 126C58 157 52 184 56 217C60 245 54 273 52 300Z" fill="url(#rose-stem-gradient)"/>
+      <path d="M51 238C36 225 27 210 24 193C31 209 42 218 53 222" fill="none" stroke="#526038" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M51 165C66 151 75 136 79 117C73 134 63 145 50 151" fill="none" stroke="#667144" stroke-width="2" stroke-linecap="round"/>
+      <path d="M51 92C37 81 30 67 28 52C35 67 43 76 53 80" fill="none" stroke="#526038" stroke-width="1.7" stroke-linecap="round"/>
+      <path d="M24 193C20 184 20 177 23 171M79 117C82 108 81 101 78 95M28 52C25 44 26 37 30 30" fill="none" stroke="#7d8658" stroke-width="1.2" stroke-linecap="round"/>
     </g>
     <g id="rose-divider">
       <path d="M2 16h19M43 16h19M21 16c5-9 17-9 22 0-5 9-17 9-22 0Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
