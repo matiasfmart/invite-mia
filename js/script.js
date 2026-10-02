@@ -355,7 +355,7 @@ const CONFIG = {
       phaseSpeed: 0.012 + Math.random() * 0.018,
       sway: 0.18 + Math.random() * 0.38,
       opacity: (foreground ? 0.3 + Math.random() * 0.25 : 0.18 + Math.random() * 0.2) * depth,
-      color: Math.random() > 0.28 ? '158,27,34' : '107,15,22',
+      color: Math.random() > 0.28 ? '166,93,120' : '99,50,71',
     };
   }
 
@@ -383,11 +383,11 @@ const CONFIG = {
     const flutter = 0.35 + Math.abs(Math.sin(p.phase)) * 0.65;
     target.scale(1, flutter);
     const gradient = target.createRadialGradient(-p.size * 0.28, -p.size * 0.38, 0, 0, 0, p.size * 1.2);
-    gradient.addColorStop(0, `rgba(215,86,94,${Math.min(0.9, p.opacity + 0.2)})`);
+    gradient.addColorStop(0, `rgba(207,145,165,${Math.min(0.9, p.opacity + 0.2)})`);
     gradient.addColorStop(0.42, `rgba(${p.color},${p.opacity})`);
-    gradient.addColorStop(1, `rgba(72,4,12,${Math.max(0.18, p.opacity - 0.12)})`);
+    gradient.addColorStop(1, `rgba(64,28,43,${Math.max(0.18, p.opacity - 0.12)})`);
     target.fillStyle = gradient;
-    target.shadowColor = 'rgba(107,15,22,0.24)';
+    target.shadowColor = 'rgba(99,50,71,0.24)';
     target.shadowBlur = p.size * 0.45;
     target.beginPath();
     target.moveTo(0, -p.size);
@@ -422,7 +422,7 @@ const CONFIG = {
         rotSpeed: (Math.random() - 0.5) * 0.12,
         life: 0,
         maxLife: 46 + Math.random() * 20,
-        color: Math.random() > 0.2 ? '158,27,34' : '107,15,22',
+        color: Math.random() > 0.2 ? '166,93,120' : '99,50,71',
       });
     }
   }
@@ -732,7 +732,7 @@ function fireConfetti() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  const colors = ['#D4AF37', '#B8963E', '#9E1B22', '#F5EFE1', '#6F7450'];
+  const colors = ['#D4AF37', '#B8963E', '#A65D78', '#F5EFE1', '#6F7450'];
   const pieces = Array.from({ length: 140 }, () => ({
     x: canvas.width / 2,
     y: canvas.height / 2,
