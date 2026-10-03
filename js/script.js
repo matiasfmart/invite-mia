@@ -355,7 +355,7 @@ const CONFIG = {
       phaseSpeed: 0.012 + Math.random() * 0.018,
       sway: 0.18 + Math.random() * 0.38,
       opacity: (foreground ? 0.3 + Math.random() * 0.25 : 0.18 + Math.random() * 0.2) * depth,
-      color: Math.random() > 0.28 ? '166,93,120' : '99,50,71',
+      color: Math.random() > 0.28 ? '217,109,140' : '110,52,70',
     };
   }
 
@@ -383,11 +383,11 @@ const CONFIG = {
     const flutter = 0.35 + Math.abs(Math.sin(p.phase)) * 0.65;
     target.scale(1, flutter);
     const gradient = target.createRadialGradient(-p.size * 0.28, -p.size * 0.38, 0, 0, 0, p.size * 1.2);
-    gradient.addColorStop(0, `rgba(207,145,165,${Math.min(0.9, p.opacity + 0.2)})`);
+    gradient.addColorStop(0, `rgba(240,169,184,${Math.min(0.9, p.opacity + 0.2)})`);
     gradient.addColorStop(0.42, `rgba(${p.color},${p.opacity})`);
-    gradient.addColorStop(1, `rgba(64,28,43,${Math.max(0.18, p.opacity - 0.12)})`);
+    gradient.addColorStop(1, `rgba(91,43,57,${Math.max(0.18, p.opacity - 0.12)})`);
     target.fillStyle = gradient;
-    target.shadowColor = 'rgba(99,50,71,0.24)';
+    target.shadowColor = 'rgba(110,52,70,0.24)';
     target.shadowBlur = p.size * 0.45;
     target.beginPath();
     target.moveTo(0, -p.size);
@@ -422,7 +422,7 @@ const CONFIG = {
         rotSpeed: (Math.random() - 0.5) * 0.12,
         life: 0,
         maxLife: 46 + Math.random() * 20,
-        color: Math.random() > 0.2 ? '166,93,120' : '99,50,71',
+        color: Math.random() > 0.2 ? '217,109,140' : '110,52,70',
       });
     }
   }
@@ -549,9 +549,10 @@ const CONFIG = {
 (function music() {
   const indicator = document.getElementById('music-indicator');
   const audio = document.getElementById('bg-music');
-  const notes = [...indicator.querySelectorAll('.air-note')];
+  const trail = indicator.querySelector('.music-trail');
+  const noteTemplates = [...trail.querySelectorAll('.air-note')];
   let noteTimer = null;
-  let lastNote = null;
+  let lastNoteTemplate = null;
   let lastOrientation = null;
   let orientationRun = 0;
 
@@ -560,8 +561,8 @@ const CONFIG = {
 
   function scheduleNote() {
     if (noteTimer) return;
-    const shortBurst = Math.random() < 0.42;
-    const delay = shortBurst ? 800 + Math.random() * 1000 : 2200 + Math.random() * 2000;
+    const shortBurst = Math.random() < 0.72;
+    const delay = shortBurst ? 350 + Math.random() * 400 : 900 + Math.random() * 700;
     noteTimer = setTimeout(emitNote, delay);
   }
 
@@ -572,20 +573,24 @@ const CONFIG = {
       return;
     }
 
-    const available = notes.filter(note => !note.classList.contains('sounding') && note !== lastNote);
-    if (!available.length) {
+    const activeNotes = trail.querySelectorAll('.air-note.sounding');
+    if (activeNotes.length >= 7) {
       noteTimer = setTimeout(emitNote, 320);
       return;
     }
 
-    const note = available[Math.floor(Math.random() * available.length)];
+    const available = noteTemplates.filter(note => note !== lastNoteTemplate);
+    const template = available[Math.floor(Math.random() * available.length)];
+    const note = template.cloneNode(true);
+    note.classList.remove('sounding');
+    note.setAttribute('aria-hidden', 'true');
     const duration = 6.8 + Math.random() * 2;
     const sway = 7 + Math.random() * 10;
     const swayDirection = Math.random() < 0.5 ? -1 : 1;
     note.style.setProperty('--note-duration', `${duration.toFixed(2)}s`);
     note.style.setProperty('--tilt-a', `${(sway * swayDirection).toFixed(1)}deg`);
     note.style.setProperty('--tilt-b', `${(-sway * 0.8 * swayDirection).toFixed(1)}deg`);
-    if (note.hasAttribute('data-flippable')) {
+    if (template.hasAttribute('data-flippable')) {
       let upsideDown = Math.random() < 0.5;
       if (upsideDown === lastOrientation && orientationRun >= 2) upsideDown = !upsideDown;
       orientationRun = upsideDown === lastOrientation ? orientationRun + 1 : 1;
@@ -595,16 +600,14 @@ const CONFIG = {
       note.style.setProperty('--orientation', '0deg');
     }
     note.classList.add('sounding');
-    lastNote = note;
+    note.addEventListener('animationend', () => note.remove(), { once: true });
+    trail.appendChild(note);
+    lastNoteTemplate = template;
     scheduleNote();
   }
 
-  notes.forEach(note => {
-    note.addEventListener('animationend', () => note.classList.remove('sounding'));
-  });
-
   function startNoteStream() {
-    if (!noteTimer && !notes.some(note => note.classList.contains('sounding'))) emitNote();
+    if (!noteTimer && !trail.querySelector('.air-note.sounding')) emitNote();
   }
 
   function start() {
@@ -732,7 +735,7 @@ function fireConfetti() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  const colors = ['#D4AF37', '#B8963E', '#A65D78', '#F5EFE1', '#6F7450'];
+  const colors = ['#D4AF37', '#B8963E', '#D96D8C', '#F5EFE1', '#6F7450'];
   const pieces = Array.from({ length: 140 }, () => ({
     x: canvas.width / 2,
     y: canvas.height / 2,
