@@ -4,7 +4,7 @@
 const CONFIG = {
   eventDate: '2026-10-30T20:00:00',           // Fecha y hora del evento
   whatsappNumber: '5491100000000',            // TODO: reemplazar por el número real (código país + área + número, sin +)
-  aliasBancario: 'alias.mia.xv15',            // TODO: reemplazar por el alias/CBU real
+  aliasBancario: 'FiestadeMia',               // TODO: reemplazar por el alias/CBU real
 };
 
 // ==========================================================================
@@ -512,6 +512,17 @@ const CONFIG = {
     requestAnimationFrame(animate);
   }
   if (!reduceMotion) animate();
+})();
+
+// Taps on interactive keepsakes release a small floral burst on touch devices.
+(function mobileTapFlourish() {
+  document.addEventListener('pointerdown', (event) => {
+    if (event.pointerType !== 'touch') return;
+    const target = event.target.closest('.btn, .gallery-frame, .swatch, .lightbox-close');
+    if (!target) return;
+    const box = target.getBoundingClientRect();
+    window.spawnFloralBurst?.(box.left + box.width / 2, box.top + box.height / 2);
+  });
 })();
 
 // ==========================================================================
