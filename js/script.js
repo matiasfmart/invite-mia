@@ -2,7 +2,7 @@
 // CONFIGURACIÓN EDITABLE — modificá estos valores según el evento real
 // ==========================================================================
 const CONFIG = {
-  eventDate: '2026-10-30T20:00:00',           // Fecha y hora del evento
+  eventDate: '2026-10-30T21:30:00',           // Fecha y hora del evento
   whatsappNumber: '5491100000000',            // TODO: reemplazar por el número real (código país + área + número, sin +)
   aliasBancario: 'FiestadeMia',               // TODO: reemplazar por el alias/CBU real
 };
